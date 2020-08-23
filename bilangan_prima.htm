@@ -1,0 +1,58 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script>
+s=prompt("1. Cek bil. prima \n2. Deret bil. prima");
+jml = 0;
+switch(s)
+{
+ case "1" :
+  document.writeln('Simulasi cek bilangan prima ini dibuat oleh © Miftah Saifulloh, Telp / Whatapp +62 8211 5017 854<BR><br>');
+  cekPrima();
+  break;
+ case "2" : 
+  document.writeln('Simulasi deret bilangan prima ini dibuat oleh © Miftah Saifulloh, Telp / Whatapp +62 8211 5017 854<BR><br>');
+  bilPrima();
+  break;
+ default : 
+  document.writeln("Maaf tidak sesuai dengan opsi pilihan");
+}
+
+function panggil()
+ {document.writeln(i+", "); jml += i;}
+ 
+ function bilPrima()
+ {
+  input = prompt("Inputan bil. prima ?");
+  document.writeln("bilangan prima : <br> ");
+  for(i=2;i<=input;i++)
+  {
+   for(j=2;j<=i;j++)
+   {
+    if(i%j==0)
+    {if(i==j)
+	  panggil();
+	  break;}
+    }
+   }
+   document.writeln("<br><br>Jumlah deret : "+jml);
+ }
+ 
+ function cekPrima()
+ {
+  input = prompt("Inputan cek bil. prima ?");
+  if(input==2)
+  {document.writeln(input+" merupakan bilangan prima");}
+  
+  for(i=3;i<=input;i+=2)
+  {
+   
+   if(input%2==0 || input%i==0)
+    {if(input==i)
+       {document.writeln(input+" merupakan bilangan prima"); break;}
+	 else
+	   {document.writeln(input+" bukan merupakan bilangan prima"); break;}
+	}
+  }
+ }
+
+</script></html>

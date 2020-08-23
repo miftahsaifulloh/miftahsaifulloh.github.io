@@ -1,0 +1,318 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Miftah Saifulloh</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="highcharts.js"></script>
+<script src="exporting.js"></script>
+<script src="export-data.js"></script>
+
+<p>
+	<center>
+		Pembuat : <a href="mailto:miftah.saifulloh@gmail.com">Miftah Saifulloh</a><br>
+Telp / Whatsapp : <a href="https://api.whatsapp.com/send?phone=6282115017854&amp;text=Hallo%20Bapa%20Miftah%20Saifulloh" target="_blank" style="text-decoration:none;">
++62 8211 5017 854 
+</a><br>
+		<img src="miftah_saifulloh.jpg" width="70" height="100" /></h4>
+	</center>
+</p>
+<div id="container"></div>
+<style>
+#container {
+    min-width: 310px;
+    height: 400px;
+    margin: 0 auto;
+}
+</style>
+<script>
+batas = 0;
+input_suhu = 0;
+
+		xVal = 0;
+		yVal = 0;
+		saklar = 0;
+		jeda = 0;
+		
+var chart = Highcharts.chart('container', {
+    chart: {
+
+           // height: 900,
+        type: 'spline',
+        animation: Highcharts.svg, // don't animate in old IE
+        marginRight: 10,
+        events: {
+            load: function () {
+
+                // set up the updating of the chart each second
+                var series = this.series[0];
+                setInterval(function () {
+                    var x = (new Date()).getTime(), // current time
+                        y = yVal;
+                    series.addPoint([x, y], true, false);
+					
+					//yAxis.plotLines[0].value = yVal;
+					if(yVal == input_suhu) {
+				batas = 1;
+				saklar = 1;
+			} else {
+				batas = 0;
+				saklar = 0;
+			}			
+			if(batas == 0) {
+				if(yVal <= input_suhu) {
+					yVal++;
+
+					<!-- HEATER -->
+					ctx.beginPath();
+					ctx.arc(30, 30, 20, 0, 2 * Math.PI);
+					ctx.fillStyle='green';
+					ctx.fill();		
+					ctx.stroke();
+							
+					<!-- REFRIGATOR -->
+					ctx.beginPath();
+					ctx.arc(30, 80, 20, 0, 2 * Math.PI);
+					ctx.fillStyle='gray';
+					ctx.fill();		
+					ctx.stroke();
+				} else {
+					yVal--;
+					
+					<!-- HEATER -->
+					ctx.beginPath();
+					ctx.arc(30, 30, 20, 0, 2 * Math.PI);
+					ctx.fillStyle='gray';
+					ctx.fill();		
+					ctx.stroke();
+							
+					<!-- REFRIGATOR -->
+					ctx.beginPath();
+					ctx.arc(30, 80, 20, 0, 2 * Math.PI);
+					ctx.fillStyle='green';
+					ctx.fill();		
+					ctx.stroke();
+				}
+				
+				
+			}
+			
+			if (saklar == 1) {
+				jeda++;
+				if(jeda >= 2) {
+					jeda = 2;
+					<!-- HEATER -->
+					ctx.beginPath();
+					ctx.arc(30, 30, 20, 0, 2 * Math.PI);
+					ctx.fillStyle='gray';
+					ctx.fill();		
+					ctx.stroke();
+							
+					<!-- REFRIGATOR -->
+					ctx.beginPath();
+					ctx.arc(30, 80, 20, 0, 2 * Math.PI);
+					ctx.fillStyle='gray';
+					ctx.fill();		
+					ctx.stroke();
+				}
+			}
+			
+			document.getElementById("suhu").innerHTML = "<span style=\"color:red\"><b>Sensor Suhu : "+yVal+" &#176;C</span>, Target Suhu : <span style=\"color:red\">"+input_suhu+" &#176;C</span></b> ";
+			//if(yVal == document.getElementById('slider2').innerText) {
+
+			
+			chart.yAxis[0].options.plotLines[0].value = yVal;
+			chart.yAxis[0].options.plotLines[0].label.text = yVal+" C";
+			chart.yAxis[0].update();
+                }, 1000);
+            }
+        }
+    },
+
+    time: {
+        useUTC: false
+    },
+
+    title: {
+        text: 'Remote Suhu'
+    },
+    xAxis: {
+        type: 'datetime',
+		gridLineWidth: 1,
+        tickPixelInterval: 150
+    },
+    yAxis: {
+	//gridLineColor: 'transparent',
+	  min: 0,
+	  tickInterval: 5,
+      max: 100,
+        title: {
+            text: 'Suhu'
+        },
+        plotLines: [{
+            color: 'red',
+            width: 2,
+				zIndex: 5,
+            value: yVal+" C",
+            label: {
+                text: yVal,
+                align: 'right',
+				x:-10,
+				y:-5
+            }
+        }]
+    },
+    tooltip: {
+        headerFormat: '<b>{series.name}</b><br/>',
+        pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
+    },
+    legend: {
+        enabled: true
+    },
+    exporting: {
+        enabled: false
+    },
+	 plotOptions: {
+        series: {
+            marker: {
+                enabled: false
+            }
+        }
+    },
+    series: [{
+        name: 'Suhu',
+        data: (function () {
+            // generate an array of random data
+            var data = [],
+                time = (new Date()).getTime(),
+                i;
+
+            for (i = -19; i <= 0; i += 1) {
+                data.push({
+                    x: time + i * 1000,
+                    y: 0
+                });
+            }
+            return data;
+        }())
+    }]
+});
+
+
+</script>
+
+
+<!-- INPUT CIRCLE -->
+<script type="text/javascript" src="jquery-1.11.0.js"></script>
+<link rel="stylesheet" type="text/css" href="result-light.css">
+<link rel="stylesheet" type="text/css" href="roundslider.min.css">
+<script type="text/javascript" src="roundslider.min.js"></script>
+<style id="compiled-css" type="text/css">
+ #slider2 {
+  border-radius: 1000px;
+  box-shadow: 0px 0px 10px 0px rgb(123, 123, 123);
+}
+.rs-border {
+  border-width: 0px;
+}
+.rs-handle {
+  box-shadow: 0px 0px 16px 0px rgb(177, 177, 177);
+  margin-left: 16px !important;
+  background-color: rgb(252, 252, 252);
+}
+.rs-tooltip-text {
+  font-size: 34px;
+  color: gray;
+}
+span.rs-seperator.rs-border {
+  height: 8px !important;
+  width: 8px !important;
+  background: #aeaeae;
+  border-radius: 1000px;
+  margin-left: 2px;
+  margin-top: -4px !important;
+}
+
+.styled {
+    border: 0;
+    line-height: 2.5;
+    padding: 0 20px;
+    font-size: 1rem;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    border-radius: 10px;
+    background-color: rgba(220, 0, 0, 1);
+    background-image: linear-gradient(to top left,
+                                      rgba(0, 0, 0, .2),
+                                      rgba(0, 0, 0, .2) 30%,
+                                      rgba(0, 0, 0, 0));
+    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
+                inset -2px -2px 3px rgba(0, 0, 0, .6);
+}
+
+.styled:hover {
+    background-color: rgba(255, 0, 0, 1);
+}
+
+.styled:active {
+    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
+                inset 2px 2px 3px rgba(0, 0, 0, .6);
+}
+
+</style>
+
+<script type="text/javascript">
+$(window).load(function(){ 
+	$("#slider2").roundSlider({
+	  radius: 120,
+	  width: 14,
+	  value: 0,
+	  handleSize: 35,
+	  startAngle: "315",
+	  endAngle: "+270"
+	});
+});
+</script>
+
+
+
+</head>
+<body>
+
+<!-- GRAPHICS -->
+
+
+
+<!-- LAMP -->
+<canvas id="myCanvas" width="200" height="110" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+<script>
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+ctx.beginPath();
+ctx.arc(30, 30, 20, 0, 2 * Math.PI);
+ctx.fillStyle='gray';
+ctx.fill();		
+ctx.stroke();
+ctx.fillStyle='red';
+ctx.font = "12px Arial";
+ctx.fillText("HEATER",60,30);
+	
+ctx.beginPath();
+ctx.arc(30, 80, 20, 0, 2 * Math.PI);
+ctx.fillStyle='gray';
+ctx.fill();		
+ctx.stroke();
+ctx.fillStyle='blue';
+ctx.font = "12px Arial";
+ctx.fillText("REFRIGATOR",60,80);
+</script>
+<div id="suhu"></div>
+<!-- INPUT CIRCLE -->
+<br>
+<div id="slider2" class="rslider"></div><br>
+
+
+<input class="favorite styled" type="button" value="proses" onclick="input_suhu = document.getElementById('slider2').innerText;" />
+</html>

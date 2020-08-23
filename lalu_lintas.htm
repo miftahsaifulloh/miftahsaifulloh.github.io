@@ -1,0 +1,247 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script>
+var sw = false;
+var n = -1;
+var t = -1;
+function utama()
+{  
+ setTimeout('utama()',1000)
+ panggil_waktu();
+ mulai_tgl_bln_thn();
+ 
+ function panggil_waktu()
+ {
+  waktu = new Date()
+  jam = waktu.getHours();
+  menit = waktu.getMinutes();
+  detik = waktu.getSeconds();
+  document.getElementById('tampil_waktu').firstChild.nodeValue = 'Waktu sekarang menunjukan pukul '+jam+' : '+menit+' : '+detik;
+ } 
+ 
+ function mulai_tgl_bln_thn()
+ {
+  bulan = new Array()
+   bulan[1] = 'januari';
+   bulan[2] = 'februari';
+   bulan[3] = 'maret';
+   bulan[4] = 'april';
+   bulan[5] = 'mei';
+   bulan[6] = 'juni';
+   bulan[7] = 'juli';
+   bulan[8] = 'agustus';
+   bulan[9] = 'september';
+   bulan[10] = 'oktober';
+   bulan[11] = 'nopember';
+   bulan[12] = 'desember';
+
+  hari = new Array()
+   hari[1] = 'senin';
+   hari[2] = 'selasa';
+   hari[3] = 'rabu';
+   hari[4] = 'kamis';
+   hari[5] = 'jum\'at';
+   hari[6] = 'sabtu';
+   hari[7] = 'minggu';
+
+  tgl_bln_thn();
+  function tgl_bln_thn()
+   {
+//Hari-Tanggal-Bulan-Tahun
+    htbn = new Date();
+
+//Hari sekarang
+     for(i=1;i<=7;++i)
+      {
+       if(i==htbn.getDay())
+        {hari = hari[i];}
+      } 
+
+//Tanggal sekarang 
+    tanggal = htbn.getDate();
+
+//Bulan sekarang
+     for(i=1;i<=12;++i)
+      {
+       if(i==htbn.getMonth()+1)
+        {bulan = bulan[i];}
+      } 
+
+//Tahun sekarang
+    var tahun = htbn.getYear();
+    if (tahun < 2000)
+     {tahun = tahun + 1900;}
+
+//Tampil Hari-Tanggal-Bulan-Tahun sekarang
+    document.getElementById('tampil_tgl_bln_thn').firstChild.nodeValue = 'Sekarang hari '+hari+', tanggal '+tanggal+', bulan '+bulan+', tahun '+tahun;
+   }
+ }
+
+}
+
+function nilai_karakter()
+{
+  max = kirim.jarak_waktu.value.length;
+  satuan_karakter = kirim.jarak_waktu.value.charAt(max-1);
+   if (/^[0-9]$/.test(satuan_karakter) )   
+    {kirim.jarak_waktu.value = eval(kirim.jarak_waktu.value)}
+   else
+    {kirim.jarak_waktu.value = kirim.jarak_waktu.value.substring(0,max-1);}
+}
+
+function aktifkan()
+{
+  if(kirim.jarak_waktu.value=='')
+   {alert('Inputan interval waktu tidak boleh kosong ! Masukan nilai inputan ?');document.kirim.jarak_waktu.focus();}
+  else
+   {   
+    interval_waktu = kirim.jarak_waktu.value;
+    kirim.jarak_waktu.readOnly = true;
+    kirim.saklar_nyala.disabled = true;
+    kirim.saklar_matikan.disabled = false;
+    kirim.jarak_waktu.style.background='#C0C0C0';
+    kirim.penghitung.value = 0;
+    panggil();
+   } 
+}
+
+function nonaktifkan()
+{
+ clearTimeout(timer);
+ kirim.nilai_total_waktu.value = '';
+ kirim.penghitung.value = '';
+ sw = false;
+ kirim.saklar_nyala.disabled=false;
+ kirim.saklar_matikan.disabled=true;
+ kirim.jarak_waktu.readOnly=false;
+ kirim.jarak_waktu.style.background='white';
+ n=-1;
+ t=-1;
+ kirim.waktu.value="";
+ kirim.selisih_waktu.value="";
+ kirim.jarak_waktu.value=0;
+ interval_waktu=0;
+ hijau1.bgColor='#C0C0C0';
+ hijau2.bgColor='#C0C0C0';
+ hijau3.bgColor='#C0C0C0';
+ hijau4.bgColor='#C0C0C0';
+ kuning1.bgColor ='#C0C0C0';
+ kuning2.bgColor ='#C0C0C0';
+ kuning3.bgColor ='#C0C0C0';
+ kuning4.bgColor ='#C0C0C0';
+ merah1.bgColor ='#C0C0C0';
+ merah2.bgColor ='#C0C0C0';
+ merah3.bgColor ='#C0C0C0';
+ merah4.bgColor ='#C0C0C0';
+}
+
+function panggil()
+ {
+  timer = setTimeout('panggil()',1000);
+  ++n;
+  ++t;
+  kirim.waktu.value = n;
+  kirim.selisih_waktu.value = t;
+  kirim.nilai_total_waktu.value = ((interval_waktu*8)+7);
+  if(t==interval_waktu)
+    {t=-1;}
+// Lampu stopan 1  
+    if (n>=((interval_waktu*0)+0) && n<=((interval_waktu*1)+0))
+     {hijau1.bgColor="green";merah2.bgColor="red";merah3.bgColor="red";merah4.bgColor="red";}
+    else
+     {hijau1.bgColor="#C0C0C0";}
+
+    if (n>=((interval_waktu*1)+1) && n<=((interval_waktu*2)+1))
+     {kuning1.bgColor="yellow";}
+    else
+     {kuning1.bgColor="#C0C0C0";}
+
+    if (n>=((interval_waktu*2)+2) && n<=((interval_waktu*8)+7))
+     {merah1.bgColor="red";}
+    else
+     {merah1.bgColor="#C0C0C0";}
+
+    if (n==((interval_waktu*0)+0))
+     {merah1.bgColor = "#C0C0C0";}
+
+// Lampu stopan 2 
+    if (n>=((interval_waktu*2)+2) && n<=((interval_waktu*3)+2))
+     {hijau2.bgColor="green";merah1.bgColor="red";merah3.bgColor="red";merah4.bgColor="red";}
+    else
+     {hijau2.bgColor="#C0C0C0";}
+
+    if (n>=((interval_waktu*3)+3) && n<=((interval_waktu*4)+3))
+     {kuning2.bgColor="yellow";}
+    else
+     {kuning2.bgColor="#C0C0C0";}
+
+    if (n>=((interval_waktu*4)+4) && n<=((interval_waktu*8)+7) || n>=((interval_waktu*0)+0) && n<=((interval_waktu*2)+2))
+     {merah2.bgColor="red";}
+    else
+     {merah2.bgColor="#C0C0C0";}
+
+    if (n==((interval_waktu*2)+2))
+     {merah2.bgColor = "#C0C0C0";}
+
+// Lampu stopan 3  
+    if (n>=((interval_waktu*4)+4) && n<=((interval_waktu*5)+4))
+     {hijau3.bgColor="green";merah1.bgColor="red";merah2.bgColor="red";merah4.bgColor="red";}
+    else
+     {hijau3.bgColor="#C0C0C0";}
+
+    if (n>=((interval_waktu*5)+5) && n<=((interval_waktu*6)+5))
+     {kuning3.bgColor="yellow";}
+    else
+     {kuning3.bgColor="#C0C0C0";}
+
+    if (n>=((interval_waktu*6)+6) && n<=((interval_waktu*8)+7) || n>=((interval_waktu*0)+0) && n<=((interval_waktu*4)+4))
+     {merah3.bgColor="red";}
+    else
+     {merah3.bgColor="#C0C0C0";}
+
+    if (n==((interval_waktu*4)+4))
+     {merah3.bgColor = "#C0C0C0";}
+
+// Lampu stopan 4    
+    if (n>=((interval_waktu*6)+6) && n<=((interval_waktu*7)+6))
+     {hijau4.bgColor="green";merah1.bgColor="red";merah2.bgColor="red";merah3.bgColor="red";}
+    else
+     {hijau4.bgColor="#C0C0C0";}
+
+    if (n>=((interval_waktu*7)+7) && n<=((interval_waktu*8)+7))
+     {kuning4.bgColor="yellow";}
+    else
+     {kuning4.bgColor="#C0C0C0";}
+
+    if (n==((interval_waktu*6)+6))
+     {merah4.bgColor = "#C0C0C0";}
+
+    if (n==((interval_waktu*8)+7))
+     {n=-1;sw=true;}
+     
+// Penghitung Counter lampu stopan lalu lintas
+    if ( (sw==true) && (n==((interval_waktu*0)+0)) )
+     {kirim.penghitung.value = eval(kirim.penghitung.value) + 1;}
+ }
+</script>
+<body onload="utama();document.kirim.jarak_waktu.focus()">
+		Pembuat : <a href="mailto:miftah.saifulloh@gmail.com">Miftah Saifulloh</a><br>
+Telp / Whatsapp : <a href="https://api.whatsapp.com/send?phone=6282115017854&amp;text=Hallo%20Bapa%20Miftah%20Saifulloh" target="_blank" style="text-decoration:none;">
++62 8211 5017 854 
+</a><br>
+<form name="kirim">
+ <table border="1" bgcolor="black" >
+  <tr><td height="50" colspan="4"><div align="center" ><b><font size="3" color="white">LAMPU </font><font size="3" color="#00FF00">STOPAN </font><font size="3" color="white"></font><font size="3" color="#FFFF00">LALU </font><font size="3" color="white"></font><font size="3" color="#FF0000">LINTAS</font></b></div></td></tr>
+  <tr><td height="50" colspan="4"><font color="white" size="3"><div id="tampil_tgl_bln_thn" align="center">&nbsp;</div><div id="tampil_waktu" align="center">&nbsp;</div></font></td></tr>
+  <tr><td height="50" width="100"><p align="center"><font face="Comic Sans MS" size="1" color="white">Lampu Stopan 1</font></td><td height="50" width="100"><p align="center"><font face="Comic Sans MS" size="1" color="white">Lampu Stopan 2</font></td><td height="50" width="100"><p align="center"><font face="Comic Sans MS" size="1" color="white">Lampu Stopan 3</font></td><td height="50" width="100"><p align="center"><font face="Comic Sans MS" size="1" color="white">Lampu Stopan 4</font></td></tr>
+  <tr><td id="hijau1" bgColor="#C0C0C0" height="50">&nbsp;</td><td id="hijau2" bgColor="#C0C0C0" height="50">&nbsp;</td><td id="hijau3" bgColor="#C0C0C0" height="50">&nbsp;</td><td id="hijau4" bgColor="#C0C0C0" height="50">&nbsp;</td></tr>
+  <tr><td id="kuning1" bgColor="#C0C0C0" height="50">&nbsp;</td><td id="kuning2" bgColor="#C0C0C0" height="50">&nbsp;</td><td id="kuning3" bgColor="#C0C0C0" height="50">&nbsp;</td><td id="kuning4" bgColor="#C0C0C0" height="50">&nbsp;</td></tr>
+  <tr><td id="merah1" bgColor="#C0C0C0" height="50">&nbsp;</td><td id="merah2" bgColor="#C0C0C0" height="50">&nbsp;</td><td id="merah3" bgColor="#C0C0C0" height="50">&nbsp;</td><td id="merah4" bgColor="#C0C0C0" height="50">&nbsp;</td></tr>
+  <tr><td height="50" colspan="2"><div align="center"><font face="Comic Sans MS" size="1" color="white">Keseluruhan Total Waktu :</font></div>	<div align="center"><font color="white"><input name="nilai_total_waktu" type="text" size="4" dir="rtl" readonly style="background-color: #C0C0C0"></font></div><div align="center"><font size="1" face="Comic Sans MS" color="white">Perdetik</font></div></td>
+      <td height="50" colspan="2"><div align="center"><div align="center"><font face="Comic Sans MS" size="1" color="white">Penghitung Waktu :</font></div></div><div align="center"><font color="white"><input name="penghitung" type="text" size="4" dir="rtl" readonly style="background-color: #C0C0C0"></font></div></td></tr>
+  <tr><td height="50" colspan="2"><div align="center"><font size="1" face="Comic Sans MS" color="white">Waktu :</font></div>	<div align="center"><font color="white"><input name="waktu" type="text" size="4" dir="rtl" readonly style="background-color: #C0C0C0"></font></div><div align="center"><font size="1" face="Comic Sans MS" color="white">Perdetik</font></div></td>
+      <td height="50" colspan="2"><div align="center"><div align="center"><font face="Comic Sans MS" size="1" color="white">Interval Waktu :</font></div></div><div align="center"><font color="white"><input name="selisih_waktu" type="text" size="4" dir="rtl" readonly style="background-color: #C0C0C0"></font></div><div align="center"><font size="1" face="Comic Sans MS" color="white">Perdetik</font></div></td></tr>
+  <tr><td height="50" colspan="2"><div align="center"><font size="1" face="Comic Sans MS" color="white">Settingan Interval Waktu :</font></div><div align="center"><font color="white"><input name="jarak_waktu" type="text" size="4" maxlength="5" dir="rtl" onkeydown="nilai_karakter()" onkeyup="nilai_karakter()"></font></div><div align="center"><font size="1" face="Comic Sans MS" color="white">Perdetik</font></div></td>
+	  <td height="50" colspan="2"><div align="center"><font size="1" face="Comic Sans MS" color="white">Saklar :</font></div><div align="center"><font color="white"><input name="saklar_nyala" type="button" value="ON" onclick="aktifkan()"><input name="saklar_matikan" type="button" value="OFF" onclick="nonaktifkan();kirim.jarak_waktu.value = ''; document.kirim.jarak_waktu.focus();" disabled></font></div></td>
+ </table>
+</form>
+</body>

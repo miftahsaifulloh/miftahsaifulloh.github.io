@@ -1,0 +1,77 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script>
+a = prompt("Pembilang :");
+b = prompt("Penyebut  :");
+pem = eval(a);
+pen = eval(b);
+document.writeln('<font color=black>Simulasi penyederhana-an pecahan ini dibuat oleh © Miftah Saifulloh, Telp / Whatapp +62 8211 5017 854</font><BR><BR>');
+document.writeln("<font color=black>");
+pecahan();
+document.writeln("</font color>");
+
+function pecahan()
+{k=1;
+  if(eval(a % b)!=0)
+   { 
+     if(eval(a)>eval(b))  
+      {
+        for(i=2;i<=a;i+=k)
+            {
+              if(i>=3){k=2;}
+              if(eval(a%i)==0 && eval(b%i)==0)
+               {a /= i; 
+                 b /= i;
+                 return pecahan();
+               }
+            }
+      }
+     if(eval(b)>eval(a))
+      {
+        for(i=2;i<=b;i+=k)
+            { if(i>=3){k=2;}   	
+               if(eval(a%i)==0 && eval(b%i)==0)
+                {a /= i;
+                  b /= i;
+                  return pecahan();
+                }
+            }
+       }
+//document.bgColor="#000000";
+document.writeln("INPUT : <BR>");
+document.writeln("Pembilang : "+pem+"<BR>");
+document.writeln("Penyebut  : "+pen+"<BR>");
+document.writeln(pem+" / "+pen+" = "+eval(pem/pen)+"<BR><BR>");
+document.writeln("OUTPUT : <BR>");
+
+if(eval(pem)==eval(a) && eval(pen)==eval(b))
+  {document.writeln("*tidak dapat disederhanakan*<BR>");}
+else
+  {document.writeln("*dapat disederhanakan*<BR>");}
+
+document.writeln(a+" / "+b+" = "+eval(a/b)+"<BR><BR>");
+
+if(eval(a)>=eval(b))
+  {
+    if(eval(pem)==eval(a) && eval(pen)==eval(b))
+     {document.writeln("*dapat disederhanakan*<BR>");}
+    else
+     {document.writeln("*dapat disederhanakan lagi* <BR>");}
+    
+    for(p=1;p<=a;p++)
+        {
+          if( eval(a-(p*b)) >= -1*eval(a) )
+           {document.writeln(p+"+("+eval(a-(p*b))+"/"+b+")"+"="+eval(a/b)+"<BR>");}
+         else
+           {break;}
+        }
+  }}
+else
+ {
+  //document.bgColor="#000000";  
+  document.writeln("INPUT : <BR>");  document.writeln("Pembilang : "+pem+"<BR>");  document.writeln("Penyebut  : "+pen+"<BR>");  document.writeln(pem+" / "+pen+" = "+eval(pem/pen)+"<BR><BR>");
+  document.writeln("OUTPUT : <BR>");
+  document.writeln("*tidak dapat disederhanakan lagi*<BR>");
+  document.writeln(a+" / "+b+" = "+eval(a/b)+"<BR>");
+ }}
+</script></html>
