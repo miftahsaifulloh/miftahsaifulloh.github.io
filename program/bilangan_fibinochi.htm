@@ -1,0 +1,64 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script>
+s=prompt("1. Cek bil. fibinochi \n2. Deret bil. fibinochi");
+switch(s)
+{
+ case "1" : 
+  document.writeln('Simulasi cek bilangan fibinochi ini dibuat oleh Miftah Saifulloh, Telp / Whatapp +62 8211 5017 854<BR><br>');
+  cek();
+  break;
+ case "2" : 
+  document.writeln('Simulasi deret bilangan fibinochi ini dibuat oleh Miftah Saifulloh, Telp / Whatapp +62 8211 5017 854<BR><br>');
+  bil();
+  break;
+ default : 
+  document.writeln("Maaf tidak sesuai dengan opsi pilihan");
+}
+
+function bil()
+{
+ input=prompt("Inputan suku ke-n bil.fibinochi? ");
+ jml = 1;
+ a = 0;
+ b = 1;
+ 
+ if(input<=1)
+   {document.writeln("0, ");}
+ else
+   {document.writeln(a+", "+b+", ");
+    input -= 2;
+    for(i=1;i<=input;i++)
+    {
+     c = a + b;
+     a = b;
+     b = c;
+     document.writeln(c+", ");
+	 jml += c;
+    }
+   }   
+ document.writeln("<br><br>Jumlah deret : "+jml);
+}
+
+function cek()
+{
+ input=prompt("Inputan cek bil.fibinochi? ");
+ a = 0;
+ b = 1;
+ 
+  for(i=0;i<=input;i++)
+  {
+   c = a + b;
+   a = b;
+   b = c;
+   if(c>input) 
+	 {break;}
+   x = c;
+  }
+  
+  if(input == (x || 1 || 0))
+	{document.writeln(input+" merupakan bilangan fibinochi");}
+  else
+	{document.writeln(input+" bukan merupakan bilangan fibinochi");}  
+}
+</script></html>

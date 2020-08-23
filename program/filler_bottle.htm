@@ -1,0 +1,266 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<body>
+<canvas id="fillingstation" width="300" height="250" style="border:1px solid #d3d3d3;"></canvas>
+
+
+
+<script>
+kertas = document.getElementById("fillingstation");
+tulis = kertas.getContext("2d");
+
+durasi = 100; // ms
+air = 90;
+
+tutup = 0;
+y = 0;
+ada_botol = 0;
+air_jatuh = 0;
+air_jatuh_hilang = 0;
+
+gerak_mesin_air_tutup_x = 0;
+gerak_mesin_air_tutup_y = 0;
+
+mifst_kiri = 0;
+timer_tutup_botol = 1;
+ada_tutup_botol = 0;
+
+timer_air_jatuh = 0;
+function sensorIP1(warna) {
+	//Sensor IP1
+	tulis.beginPath();
+	tulis.fillStyle=warna;
+	tulis.fillRect(180,85,20,10);
+	tulis.fill();
+	tulis.fillStyle='black';
+	tulis.font = "10px Arial";
+	tulis.fillText("Sensor IP1",150,80);
+}
+
+function mesin_air_tutup(x, y) {
+	tulis.fillStyle='gray';
+	tulis.fillRect(250+x,-40+y,15,50);
+	tulis.fillStyle='gray';
+	tulis.fillRect(220+x,10+y,80,10);
+	tulis.fillRect(230+x,20+y,10,30); //Air
+	tulis.fillRect(265+x,20+y,35,30); //Tutup
+
+	if(y >= 21) {
+		tulis.fillStyle='black';
+		tulis.fillRect(265+x,40+y,20,10); //Sensor
+		if(timer_tutup_botol >= 30) {
+		   tulis.fillStyle='red';
+		   tulis.fillRect(265+x,40+y,20,10); //Sensor
+		}
+	} else {
+		tulis.fillStyle='black';
+		tulis.fillRect(265+x,40+y,20,10); //Sensor
+	}
+	tulis.fillStyle='red';
+	tulis.fillRect(285+x,45+y,15,1); //Sensor
+	tulis.fillStyle='blue';
+	tulis.font = "10px Arial";
+	tulis.fillText("Sensor IP2",248+x,35+y);
+}
+
+function filler(x) {
+
+}
+
+function animasi() {
+	tulis.clearRect(0,0,300,250);
+	
+	//Indikator OP2
+	tulis.beginPath();
+	tulis.fillStyle='gray';
+	tulis.arc(20, 15, 10, 1.5 * Math.PI, -0.5 * Math.PI, 1);
+	tulis.fill();
+	tulis.fillStyle='blue';
+	tulis.font = "10px Arial";
+	tulis.fillText("Cap plunger piston OP2 ",35,17);
+	
+	//Indikator OP3
+	tulis.beginPath();
+	tulis.fillStyle='gray';
+	tulis.arc(20, 40, 10, 1.5 * Math.PI, -0.5 * Math.PI, 1);
+	tulis.fill();
+	tulis.fillStyle='blue';
+	tulis.font = "10px Arial";
+	tulis.fillText("Bottle filler piston OP3 ",35,43);
+	
+	//Sensor IP1 
+	sensorIP1('gray');
+
+	if(ada_botol == 0) {
+		//Botol
+		tulis.beginPath();
+		tulis.moveTo(250, 60);
+		tulis.lineTo(220, 60);
+		tulis.lineTo(220, 70);
+		tulis.arc(225, 90, 15, 1.5*Math.PI, 1 *Math.PI, 1);	
+		tulis.lineTo(210, 90);
+		tulis.lineTo(210, 160);
+		tulis.lineTo(260, 160);
+		tulis.lineTo(260, 90);
+		tulis.arc(245, 90, 15, 0*Math.PI, 1.5 *Math.PI, 1);	
+		tulis.lineTo(250, 70);
+		tulis.lineTo(250, 60);
+		tulis.fillStyle='gray';
+		tulis.fill();
+		
+		if(timer_air_jatuh <= 30) {
+			timer_air_jatuh++;
+		}
+		if(timer_air_jatuh >= 30) {
+			timer_air_jatuh = 31;
+			if (air_jatuh <= 108) {
+				tulis.fillStyle='#40a4df';
+				tulis.fillRect(233,50,5,0+air_jatuh++); //Air
+				
+				//Indikator OP3
+				tulis.beginPath();
+				tulis.fillStyle='red';
+				tulis.arc(20, 40, 10, 1.5 * Math.PI, -0.5 * Math.PI, 1);
+				tulis.fill();
+
+				filler = 1;
+		
+			}
+		}
+		if (air_jatuh >= 109) {
+			tulis.fillStyle='#40a4df';
+			tulis.fillRect(233,50,5,109-air_jatuh_hilang); //Air
+			//Air berisi
+			tulis.globalCompositeOperation='source-atop';
+			tulis.fillStyle='#40a4df';
+			tulis.fillRect(210,160,50,90-air++);
+			
+			//Indikator OP3
+			tulis.beginPath();
+			tulis.fillStyle='red';
+			tulis.arc(20, 40, 10, 1.5 * Math.PI, -0.5 * Math.PI, 1);
+			tulis.fill();
+			
+			filler = 1;
+			
+			if (air >= 160) {
+				air = 160;
+				sensorIP1('red');
+				air_jatuh_hilang = 109;
+				
+				//Indikator OP3
+				tulis.beginPath();
+				tulis.fillStyle='gray';
+				tulis.arc(20, 40, 10, 1.5 * Math.PI, -0.5 * Math.PI, 1);
+				tulis.fill();
+			
+				filler = 0;
+			
+				if( mifst_kiri == 0) {
+					if(gerak_mesin_air_tutup_x >= -47) {
+					   gerak_mesin_air_tutup_x--;
+					}
+					if(gerak_mesin_air_tutup_x <= -48) {
+					   if(gerak_mesin_air_tutup_y <= 20) {
+						  gerak_mesin_air_tutup_y++;
+					   }
+					   if(gerak_mesin_air_tutup_y >= 21) {
+					      timer_tutup_botol++;
+						  
+						  //Indikator OP2
+						  tulis.beginPath();
+						  tulis.fillStyle='red';
+						  tulis.arc(20, 15, 10, 1.5 * Math.PI, -0.5 * Math.PI, 1);
+						  tulis.fill();
+						  
+						  if(timer_tutup_botol >= 50) {
+						     timer_tutup_botol = 0;
+							 mifst_kiri = 1;
+							 ada_tutup_botol = 1;
+						  }
+					   }
+					}
+				}
+				if( mifst_kiri == 1) {
+					if(gerak_mesin_air_tutup_y >= 0) {
+					   gerak_mesin_air_tutup_y--;
+					   
+					}
+					if(gerak_mesin_air_tutup_y <= 1) {
+					   if(gerak_mesin_air_tutup_x <= 0) {
+					      gerak_mesin_air_tutup_x++;
+						  
+						  
+					   }
+					}
+				}
+			}
+			tulis.globalCompositeOperation='source-over';
+			if (ada_tutup_botol== 1) {
+				tulis.fillStyle='green';
+				tulis.fillRect(220,60,30,10);
+				
+				//Indikator OP2
+				tulis.beginPath();
+				tulis.fillStyle='gray';
+				tulis.arc(20, 15, 10, 1.5 * Math.PI, -0.5 * Math.PI, 1);
+				tulis.fill();
+			}
+			
+
+		}
+	}
+	
+	if(filler == 1) {
+		//filler
+		tulis.beginPath();
+		tulis.fillStyle='blue';
+		tulis.fillRect(233,50,5,60);
+		tulis.fill();
+	}
+			
+	mesin_air_tutup(gerak_mesin_air_tutup_x,gerak_mesin_air_tutup_y);
+
+	//Garis Sensor IP1
+	tulis.beginPath();
+	tulis.fillStyle='red';
+	tulis.fillRect(200,89,300,1);
+	tulis.fill();
+	
+
+	//Conveyor
+	tulis.beginPath();
+	tulis.fillStyle='black';
+	tulis.fillRect(180,160,110,10);
+	tulis.fill();
+
+	//Conveyor
+	tulis.beginPath();
+	tulis.fillStyle='gray';
+	tulis.fillRect(180,170,110,20);
+	tulis.fill();
+	
+	tulis.fillStyle='blue';
+	tulis.font = "10px Arial";
+	tulis.fillText("Filling Station ",116,220);
+	tulis.fillStyle='black';
+	tulis.font = "10px Arial";
+	tulis.fillText("Miftah Saifulloh",116,230);
+	tulis.fillStyle='green';
+	tulis.font = "10px Arial";
+	tulis.fillText("Telp / Whatsapp +62 8211 5017 854",116,240);
+	setTimeout(animasi, durasi);
+}
+animasi();
+
+
+kertas1 = document.getElementById("stacker");
+tulis1 = kertas1.getContext("2d");
+
+tulis1.fillStyle='black';
+tulis1.font = "10px Arial";
+tulis1.fillText("Miftah Saifulloh",116,230);
+</script>
+
+</body>
+</html>

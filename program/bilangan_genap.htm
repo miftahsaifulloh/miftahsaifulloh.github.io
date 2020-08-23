@@ -1,0 +1,41 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script>
+s=prompt("1. Cek bil. genap \n2. Deret bil. genap");
+switch(s)
+{
+ case "1" :
+   document.writeln('Simulasi cek bilangan genap ini dibuat oleh Miftah Saifulloh, Telp / Whatapp +62 8211 5017 854<BR><br>');
+   cek();
+   break;
+ case "2" :
+   document.writeln('Simulasi deret bilangan genap ini dibuat oleh Miftah Saifulloh, Telp / Whatapp +62 8211 5017 854<BR><br>');
+   bil();
+   break;
+ default :
+  document.writeln("Maaf tidak sesuai dengan opsi pilihan");
+}
+
+function cek()
+{
+ n=prompt("Inputan cek bil. genap ?");
+ document.writeln("mengecek bilangan genap : <br>");
+ if((n%2)==0)
+  {document.writeln(n+" merupakan bilangan genap");} 
+ else 
+  {document.writeln(n+" bukan merupakan bilangan genap");}
+}
+
+function bil()
+{ 
+ n=prompt("Inputan bil. genap ?");
+ jml = 0;
+ document.writeln("bilangan genap : <br> ");
+ for(i=1;i<=n;i++)
+     { if((i%2)==0)    
+       {document.writeln(i+", "); 
+         jml += i;}
+     }
+document.writeln("<br><br>Jumlah deret : "+jml);
+}
+</script></html>

@@ -1,0 +1,168 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pembuat Miftah Saifulloh</title>
+<script>
+var hex;
+
+function MakeArray()
+{
+    this.length = 16;
+    return this;
+}
+
+function Populate()
+{
+    hex = new MakeArray();
+    hex[1] = "0";    
+    hex[2] = "1";    
+    hex[3] = "2";    
+    hex[4] = "3";    
+    hex[5] = "4";    
+    hex[6] = "5";    
+    hex[7] = "6";    
+    hex[8] = "7";    
+    hex[9] = "8";    
+    hex[10] = "9";    
+    hex[11] = "A";    
+    hex[12] = "B";    
+    hex[13] = "C";    
+    hex[14] = "D";    
+    hex[15] = "E";    
+    hex[16] = "F";    
+}
+
+function DecimaltoAnother(N, radix)
+{
+    s = "";
+    A = N;
+    while (A >= radix)
+    {
+        B = A % radix;
+        A = Math.floor(A / radix);
+        s += hex[B+1];
+    }
+    s += hex[A+1];
+    return Transpose(s);
+}
+
+function Transpose(s)
+{
+    N = s.length;
+    t = "";
+    for (i = 0; i < N; i++)
+        t = t + s.substring(N-i-1, N-i);
+    s = t;
+    return s;
+}
+
+function EvalB(form)
+{
+    if (form.b.value.length != 0)
+        M = parseInt(form.b.value, 2);
+    else
+        M = 0;
+    form.t.value = DecimaltoAnother(M, 3);
+    form.q.value = DecimaltoAnother(M, 5);
+    form.o.value = DecimaltoAnother(M, 8);
+    form.h.value = DecimaltoAnother(M, 16);
+    form.d.value = M;
+}
+
+function EvalT(form)
+{
+    if (form.t.value.length != 0)
+        M = parseInt(form.t.value, 3);
+    else
+        M = 0;
+    form.b.value = DecimaltoAnother(M, 2);
+    form.q.value = DecimaltoAnother(M, 5);
+    form.o.value = DecimaltoAnother(M, 8);
+    form.h.value = DecimaltoAnother(M, 16);
+    form.d.value = M;
+}
+
+function EvalQ(form)
+{
+    if (form.q.value.length != 0)
+        M = parseInt(form.q.value, 5);
+    else
+        M = 0;
+    form.b.value = DecimaltoAnother(M, 2);
+    form.t.value = DecimaltoAnother(M, 3);
+    form.o.value = DecimaltoAnother(M, 8);
+    form.h.value = DecimaltoAnother(M, 16);
+    form.d.value = M;
+}
+
+function EvalO(form)
+{
+    if (form.o.value.length != 0)
+        M = parseInt(form.o.value, 8);
+    else
+        M = 0;
+    form.b.value = DecimaltoAnother(M, 2);
+    form.t.value = DecimaltoAnother(M, 3);
+    form.q.value = DecimaltoAnother(M, 5);
+    form.h.value = DecimaltoAnother(M, 16);
+    form.d.value = M;
+}
+
+function EvalH(form)
+{
+    if (form.h.value.length != 0)
+        M = parseInt(form.h.value, 16);
+    else
+        M = 0;
+    form.b.value = DecimaltoAnother(M, 2);
+    form.t.value = DecimaltoAnother(M, 3);
+    form.q.value = DecimaltoAnother(M, 5);
+    form.o.value = DecimaltoAnother(M, 8);
+    form.d.value = M;
+}
+
+function EvalD(form)
+{
+    if (form.d.value.length != 0)
+        M = parseInt(form.d.value, 10);
+    else
+        M = 0;
+    form.b.value = DecimaltoAnother(M, 2);
+    form.t.value = DecimaltoAnother(M, 3);
+    form.q.value = DecimaltoAnother(M, 5);
+    form.o.value = DecimaltoAnother(M, 8);
+    form.h.value = DecimaltoAnother(M, 16);
+}
+
+//t  = Ternary
+//q = Quintal
+</script>
+<body onload=Populate()>
+<div class=formfield><form  method="post"><table  border=0 align=center>
+<tr><td align=right><p>Pembuat : </p></td><td>
+<a href="mailto:miftah.saifulloh@gmail.com">Miftah Saifulloh</a></td></tr>
+<tr><td align=right><p>Telp / Whatsapp : </p></td><td>
+<a href="https://api.whatsapp.com/send?phone=6282115017854&amp;text=Hallo%20Bapa%20Miftah%20Saifulloh" target="_blank" style="text-decoration:none;">
++62 8211 5017 854 
+</a></td></tr>
+<tr><td align=right><p>Biner:</p></td><td>
+<input name="b" value="" onChange="EvalB(form)" size=25 type="text">
+</td></tr>
+<tr><td align=right>Oktal:</td><td>
+<input name="o" value="" onChange="EvalO(form)" size=25 type="text">
+</td></tr>
+<tr><td align=right>Desimal:</td><td>
+<input name="d" value="" onChange="EvalD(form)" size=25 type="text">
+</td></tr>
+<tr><td align=right>Hexa:</td><td>
+<input name="h" value="" onChange="EvalH(form)" size=25 type="text">
+</td></tr>
+<tr><td align=right></td><td>
+<INPUT TYPE="hidden" VALUE="KALKULASI">&nbsp;<INPUT TYPE="reset" VALUE="HAPUS">
+</td></tr>
+<input name="t" value="" onChange="EvalT(form)" size=25 type="hidden" >
+</td></tr>
+<input name="q" value="" onChange="EvalQ(form)" size=25 type="hidden" >
+</td></tr>
+</table></form></div>
+</body>
+</html>

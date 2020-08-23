@@ -1,0 +1,42 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script>
+s=prompt("1. Cek bil. ganjil \n2. Deret bil. ganjil");
+switch(s)
+{
+ case "1" : 
+  document.writeln('Simulasi cek bilangan ganjil ini dibuat oleh Miftah Saifulloh, Telp / Whatapp +62 8211 5017 854<BR><br>');
+  cek();
+  break;
+ case "2" : 
+  document.writeln('Simulasi deret bilangan ganjil ini dibuat oleh Miftah Saifulloh, Telp / Whatapp +62 8211 5017 854<BR><br>');
+  bil();
+  break;
+ default : 
+  document.writeln("Maaf tidak sesuai dengan opsi pilihan");
+}
+
+function cek()
+{
+ n=prompt("Inputan cek bil. ganjil ?");
+ document.writeln("mengecek bilangan ganjil : <br>");
+ if((n%2)==1)
+ {document.writeln(n+" merupakan bilangan ganjil");}
+ else
+ {document.writeln(n+" bukan merupakan bilangan ganjil");}
+}
+
+function bil()
+{
+ n=prompt("Inputan bil. ganjil ?");
+ jml = 0;
+ document.writeln("bilangan ganjil : <br> ");
+ for(i=1;i<=n;i++)
+ {
+ if((i%2)==1)
+    {document.writeln(i+", ");
+	 jml += i;}
+ }
+ document.writeln("<br><br>Jumlah deret : "+jml);
+}
+</script></html>

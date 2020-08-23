@@ -1,0 +1,85 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script>
+var t = 0;
+var p = 10;
+function panggil()
+ {
+  n = eval(kirim.satuan2.value) - eval(kirim.satuan1.value);
+  kirim.data2.value = eval(kirim.data1.value) * Math.pow(p,n);
+  if (kirim.data1.value=='')
+   {
+    kirim.data2.value='';
+   }
+  
+  document.getElementById('keterangan1').firstChild.nodeValue = "kalkulasi :" ;
+  if (n<0)
+   {
+   document.getElementById('keterangan2').firstChild.nodeValue= eval(kirim.data1.value) +" : ";
+   t = n * -1;
+   for(i=1;i<=t;++i)
+    {
+     if (i==t)
+      {document.getElementById('keterangan2').firstChild.nodeValue += p ;}
+     else
+      {document.getElementById('keterangan2').firstChild.nodeValue += p + " x ";}
+    }
+   }
+  else
+   {
+   document.getElementById('keterangan2').firstChild.nodeValue= eval(kirim.data1.value) +" x ";
+   t = n;
+   for(i=1;i<=t;++i)
+    {
+     if (i==t)
+      {document.getElementById('keterangan2').firstChild.nodeValue += p;}
+     else
+      {document.getElementById('keterangan2').firstChild.nodeValue += p + " x ";}
+    }
+   }
+  
+  if(n==0) 
+    {document.getElementById('keterangan2').firstChild.nodeValue= eval(kirim.data1.value);}
+ }
+</script>
+<form name="kirim">
+<table border="0" width="47%">
+	<tr>
+		<td>
+<marquee behavior="alternate">Pembuat : <a href="mailto:miftah.saifulloh@gmail.com" style="text-decoration:none;">Miftah Saifulloh</a>, Telp / Whatsapp : <a href="https://api.whatsapp.com/send?phone=6282115017854&amp;text=Hallo%20Bapa%20Miftah%20Saifulloh" target="_blank" style="text-decoration:none;">
++62 8211 5017 854 
+</a></marquee></td>
+	</tr>
+</table>
+<p>
+<input name="data1" type="text" value="1" size="20" onkeyup="panggil()" onkeydown="panggil()">
+<select name="satuan1" onchange="panggil()">
+ <option value="1">kg
+ <option value="2">hg
+ <option value="3">dag
+ <option value="4">gr
+ <option value="5">dg
+ <option value="6">cg
+ <option value="7">mg
+ </option>
+</select>
+=
+<input name="data2" type="text" value="1" size="20" readonly>
+<select name="satuan2" onchange="panggil()">
+ <option value="1">kg
+ <option value="2">hg
+ <option value="3">dag
+ <option value="4">gr
+ <option value="5">dg
+ <option value="6">cg
+ <option value="7">mg
+ </option>
+</select>
+<input type="reset" value="reset" onclick="panggil()"><br><br>
+Satuan ukuran :<br>
+<input type="radio" name="pilih" value="10" onclick="p=10;panggil()"checked>Panjang<br>
+<input type="radio" name="pilih" value="100" onclick="p=100;panggil()" >Luas [persegi]<br>
+<input type="radio" name="pilih" value="100" onclick="p=1000;panggil()" >Volum [kubik]<br><br>
+<label id="keterangan1">&nbsp;</label><br>
+<label id="keterangan2">&nbsp;</label>
+</p>
+</form>

@@ -1,0 +1,171 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script>
+s=prompt("1.Ketupat 2.Piramid \n3.Segitiga 4.Persegi Panjang");
+switch(s)
+{
+ case "1" : 
+  n = prompt("Miftah Saifulloh :: Ketupat \nMasukan input ?");
+  ketupat();
+  break;
+ case "2" :
+  n = prompt("Miftah Saifulloh :: Piramid \nMasukan input ?");
+  setuju = confirm("Apakah anda ingin membalik piramid nya sebesar sudut 180 ?");
+  if(setuju)
+    {piramid_terbalik();}
+  else
+    {piramid();}
+  break;
+ case "3" :
+  n = prompt("Miftah Saifulloh :: Segitiga \nMasukan input ?");
+  segitiga();
+  break;
+ case "4" :
+  t = prompt("Miftah Saifulloh :: Persegi Panjang \nMasukan Tinggi inputan ?");
+  p = prompt("Miftah Saifulloh :: Persegi Panjang \nMasukan Panjang inputan ?");
+  kotak();
+  break;
+ default : 
+  document.writeln("Maaf tidak sesuai dengan opsi pilihan");
+}
+
+function ketupat()
+{
+ document.writeln('Simulasi ketupat ini dibuat oleh Miftah Saifulloh, Telp / Whatapp +62 8211 5017 854<BR>');
+ document.writeln('Input : '+ n +' <BR>');
+ for(x=1;x<=n;x++)
+ {
+  if(x%2==1)
+    {
+     if(n%2==0)
+         {i = n-x-2;
+         while(i>=1)
+              {document.writeln("&nbsp;&nbsp");
+              i-=2;}
+         }   
+     else
+         {i = n-x-1;
+          while(i>=1)
+               {document.writeln("&nbsp;&nbsp");
+                i-=2;}
+         } 
+         
+     for(y=1;y<=x;y++)
+        {
+         document.writeln("x");
+        }
+     document.writeln("<BR>");
+    }
+ }
+ 
+ for(a=n-1;a>=1;a--)
+ {
+  if(a%2==1)
+    {
+     if(n%2==0)
+         {k = n-a-2;
+         while(k>=1)
+              {document.writeln("&nbsp;&nbsp");
+              k-=2;}
+         }   
+     else
+         {k = n-a-1;
+          while(k>=1)
+               {document.writeln("&nbsp;&nbsp");
+                k-=2;}
+         } 
+         
+     for(b=1;b<=a;b++)
+        {
+         document.writeln("x");
+        }
+     document.writeln("<BR>");
+    }
+ }
+}
+
+function kotak()
+{
+ document.writeln('Simulasi persegi panjang ini dibuat oleh Miftah Saifulloh, Telp / Whatapp +62 8211 5017 854<BR>');
+ document.writeln('Tinggi : '+ t +'<BR>');
+ document.writeln('Panjang : '+ p +'<BR>');
+ for(x=1; x<=t; x++)
+ {
+    for(y=1; y<=p; y++)
+       {document.writeln("x");}
+    document.writeln("<BR>");
+ }
+}
+
+function segitiga()
+{
+ document.writeln('Simulasi segitiga ini dibuat oleh Miftah Saifulloh, Telp / Whatapp +62 8211 5017 854<BR>');
+ document.writeln('Input : '+ n +'<BR>');
+ for(x=1; x<=n; x++)
+ {
+    for(y=1; y<=x; y++)
+       {document.writeln("x");}
+    document.writeln("<BR>");
+ }
+}
+
+function piramid()
+{
+ document.writeln('Simulasi piramid ini dibuat oleh Miftah Saifulloh, Telp / Whatapp +62 8211 5017 854<BR>');
+ document.writeln('Input : '+ n +'<BR>');
+ for(x=1;x<=n;x++)
+ {
+  if(x%2==1)
+    {
+     if(n%2==0)
+         {i = n-x-2;
+         while(i>=1)
+              {document.writeln("&nbsp;&nbsp");
+              i-=2;}
+         }   
+     else
+         {i = n-x-1;
+          while(i>=1)
+               {document.writeln("&nbsp;&nbsp");
+                i-=2;}
+         } 
+         
+     for(y=1;y<=x;y++)
+        {
+         document.writeln("x");
+        }
+     document.writeln("<BR>");
+    }
+ }
+}
+
+function piramid_terbalik()
+{
+ document.writeln('Simulasi piramid ini dibuat oleh Miftah Saifulloh, Telp / Whatapp +62 8211 5017 854<BR>');
+ document.writeln('Input : '+ n +'<BR>');
+ for(x=n;x>=1;x--)
+ {
+  if(x%2==1)
+    {
+     if(n%2==0)
+         {i = n-x-2;
+         while(i>=1)
+              {document.writeln("&nbsp;&nbsp");
+              i-=2;}
+         }   
+     else
+         {i = n-x-1;
+          while(i>=1)
+               {document.writeln("&nbsp;&nbsp");
+                i-=2;}
+         } 
+         
+     for(y=1;y<=x;y++)
+        {
+         document.writeln("x");
+        }
+     document.writeln("<BR>");
+    }
+ }
+}
+</script></html>
