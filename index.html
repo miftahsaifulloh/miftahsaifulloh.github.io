@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Miftah Saifulloh, B.Comp.Sc</title>
+	<meta
+		name="description"
+		content="Miftah Saifulloh"
+	/>
+	<link rel="icon" type="image/jpeg" href="miftah_saifulloh.jpg">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Manrope:wght@400;500;700;800&display=swap"
+		rel="stylesheet"
+	/>
+	<style>
+		:root {
+			--bg-1: #130c06;
+			--bg-2: #2a1a0f;
+			--text: #fff6e7;
+			--muted: #d8bf95;
+			--accent: #d4a652;
+			--accent-2: #f7d696;
+			--line: rgba(232, 188, 110, 0.34);
+			--shadow: 0 24px 56px rgba(0, 0, 0, 0.45);
+			--radius-lg: 24px;
+			--radius-md: 16px;
+			--radius-sm: 12px;
+			--max: 1180px;
+		}
+
+		* { box-sizing: border-box; margin: 0; padding: 0; }
+		html { scroll-behavior: auto; }
+
+		body {
+			font-family: "Manrope", sans-serif;
+			color: var(--text);
+			background:
+				radial-gradient(circle at 12% 10%, rgba(247, 214, 150, 0.2), transparent 32%),
+				radial-gradient(circle at 88% 16%, rgba(199, 141, 66, 0.22), transparent 36%),
+				linear-gradient(140deg, var(--bg-1) 0%, var(--bg-2) 54%, #120c07 100%);
+			min-height: 100vh;
+			overflow-x: hidden;
+			overflow-anchor: none;
+			line-height: 1.72;
+			position: relative;
+		}
+
+		body::before,
+		body::after {
+			content: "";
+			position: fixed;
+			inset: 0;
+			pointer-events: none;
+			z-index: -1;
+		}
+
+		body::before {
+			background-image:
+				linear-gradient(rgba(251, 217, 157, 0.06) 1px, transparent 1px),
+				linear-gradient(90deg, rgba(251, 217, 157, 0.06) 1px, transparent 1px);
+			background-size: 44px 44px;
+			mask-image: radial-gradient(circle at center, #000 6%, transparent 86%);
+		}
+
+		body::after { background: radial-gradient(circle at 54% 56%, transparent 22%, rgba(5, 3, 2, 0.72) 100%); }
+
+		.flight-layer {
+			position: fixed;
+			inset: 0;
+			pointer-events: none;
+			z-index: -1;
+			overflow: hidden;
+		}
+
+		.flight {
+			position: absolute;
+			left: -26vw;
+			width: 220px;
+			height: 34px;
+			opacity: 0.84;
+			filter: drop-shadow(0 0 14px rgba(243, 199, 123, 0.34));
+		}
+
+		.flight::before {
+			content: "✈";
+			position: absolute;
+			right: 0;
+			top: 50%;
+			transform: translateY(-50%) rotate(4deg);
+			font-size: 30px;
+			line-height: 1;
+			color: #ffe5b3;
+			text-shadow: 0 0 12px rgba(255, 214, 144, 0.45);
+		}
+
+		.flight::after {
+			content: "";
+			position: absolute;
+			right: 22px;
+			top: 50%;
+			width: 185px;
+			height: 2px;
+			transform: translateY(-50%);
+			background: linear-gradient(90deg, rgba(248, 212, 148, 0), rgba(248, 212, 148, 0.7) 36%, rgba(248, 212, 148, 0));
+		}
+
+		.flight.f1 {
+			top: 14%;
+			animation: flyRight 24s linear infinite;
+			animation-delay: -3s;
+		}
+
+		.flight.f2 {
+			top: 33%;
+			animation: flyRight 31s linear infinite;
+			animation-delay: -13s;
+			scale: 0.92;
+			opacity: 0.7;
+		}
+
+		.flight.f3 {
+			top: 65%;
+			animation: flyRight 27s linear infinite;
+			animation-delay: -20s;
+			scale: 0.82;
+			opacity: 0.62;
+		}
+
+		.flight.f4 {
+			top: 48%;
+			animation: flyLeft 35s linear infinite;
+			animation-delay: -7s;
+			scale: 0.88;
+			opacity: 0.58;
+		}
+
+		.flight.f4::before {
+			transform: translateY(-50%) rotate(184deg);
+		}
+
+		.flight.f4::after {
+			right: auto;
+			left: 22px;
+			background: linear-gradient(270deg, rgba(248, 212, 148, 0), rgba(248, 212, 148, 0.62) 36%, rgba(248, 212, 148, 0));
+		}
+
+		.scroll-progress {
+			position: fixed;
+			top: 0;
+			left: 0;
+			height: 3px;
+			width: 0;
+			background: linear-gradient(90deg, var(--accent-2), var(--accent));
+			box-shadow: 0 0 18px rgba(244, 198, 120, 0.75);
+			z-index: 50;
+			transition: width 0.12s ease-out;
+		}
+
+		.container { width: min(var(--max), 92%); margin-inline: auto; }
+
+		.topbar {
+			position: sticky;
+			top: 0;
+			z-index: 30;
+			backdrop-filter: blur(16px);
+			background: rgba(22, 14, 8, 0.72);
+			border-bottom: 1px solid var(--line);
+		}
+
+		.topbar-wrap {
+			position: relative;
+			min-height: 78px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 18px;
+		}
+
+		.brand {
+			font-family: "Cinzel", serif;
+			font-weight: 700;
+			letter-spacing: 0.6px;
+			font-size: 1.04rem;
+			color: #ffefcf;
+			text-decoration: none;
+		}
+
+		.nav-toggle {
+			display: none;
+			width: 44px;
+			height: 44px;
+			border-radius: 12px;
+			border: 1px solid var(--line);
+			background: rgba(253, 216, 148, 0.08);
+			color: var(--text);
+			cursor: pointer;
+		}
+
+		nav { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+		nav a, .lang-btn {
+			color: var(--muted);
+			text-decoration: none;
+			font-size: 0.9rem;
+			font-weight: 700;
+			padding: 8px 11px;
+			border-radius: 999px;
+			transition: 0.25s ease;
+			background: transparent;
+			border: 1px solid transparent;
+			cursor: pointer;
+		}
+		nav a:hover, nav a.active-nav, .lang-btn:hover {
+			color: #fff8ec;
+			background: rgba(248, 211, 143, 0.17);
+			border-color: rgba(248, 211, 143, 0.3);
+		}
+		nav a.active-nav {
+			transform: translateY(-1px);
+			box-shadow: 0 0 0 1px rgba(248, 211, 143, 0.14) inset;
+		}
+
+		.language-switch {
+			display: inline-flex;
+			align-items: center;
+			gap: 4px;
+			padding: 3px;
+			border-radius: 999px;
+			border: 1px solid var(--line);
+			background: rgba(237, 191, 109, 0.14);
+		}
+		.lang-btn { padding: 6px 10px; }
+		.lang-btn.active {
+			color: #2a1909;
+			background: linear-gradient(120deg, #ffe2ab, #d4a652);
+			box-shadow: 0 8px 18px rgba(212, 166, 82, 0.35);
+		}
+
+		.hero { padding: 70px 0 42px; }
+		.hero-card {
+			border-radius: var(--radius-lg);
+			background: linear-gradient(145deg, rgba(47, 31, 18, 0.8), rgba(30, 20, 12, 0.92));
+			border: 1px solid var(--line);
+			box-shadow: var(--shadow);
+			overflow: hidden;
+			position: relative;
+			isolation: isolate;
+			touch-action: pan-y;
+		}
+		.hero-card::before {
+			content: "";
+			position: absolute;
+			inset: -40%;
+			background: conic-gradient(
+				from 0deg,
+				rgba(255, 223, 161, 0.2),
+				rgba(163, 109, 37, 0.12),
+				rgba(255, 214, 139, 0.22),
+				rgba(145, 98, 35, 0.12),
+				rgba(255, 223, 161, 0.2)
+			);
+			animation: haloRotate 11s linear infinite;
+			filter: blur(34px);
+			z-index: -2;
+		}
+		.hero-card::after {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: -42%;
+			width: 38%;
+			height: 100%;
+			background: linear-gradient(90deg, transparent, rgba(255, 223, 161, 0.22), transparent);
+			animation: shimmer 7s ease-in-out infinite;
+			z-index: -1;
+		}
+		.hero-grid {
+			display: grid;
+			grid-template-columns: 1.2fr 0.8fr;
+			grid-template-areas:
+				"top photo"
+				"bottom photo";
+			gap: 20px 34px;
+			padding: 40px;
+			align-items: center;
+			will-change: transform;
+			transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+		}
+		.hero-copy-top { grid-area: top; }
+		.hero-copy-bottom { grid-area: bottom; }
+		.badge {
+			display: inline-flex;
+			padding: 8px 14px;
+			border-radius: 999px;
+			background: rgba(248, 206, 131, 0.16);
+			border: 1px solid rgba(248, 206, 131, 0.4);
+			font-size: 0.78rem;
+			font-weight: 800;
+			letter-spacing: 0.9px;
+			text-transform: uppercase;
+			color: #ffeecb;
+			margin-bottom: 16px;
+		}
+
+		h1 {
+			font-family: "Cinzel", serif;
+			font-size: clamp(2.05rem, 4.4vw, 3.2rem);
+			line-height: 1.12;
+			margin-bottom: 12px;
+			color: #fff4de;
+		}
+		.subtitle { font-size: clamp(1rem, 2vw, 1.18rem); color: #ffd693; font-weight: 700; margin-bottom: 14px; }
+		.hero p { color: #e5cda7; max-width: 62ch; margin-bottom: 24px; }
+		.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+		.btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			text-decoration: none;
+			padding: 11px 18px;
+			border-radius: 12px;
+			border: 1px solid transparent;
+			font-size: 0.93rem;
+			font-weight: 800;
+			transition: transform 0.26s ease, box-shadow 0.26s ease, border-color 0.26s ease;
+		}
+		.btn-primary {
+			background: linear-gradient(120deg, #ffe3ac, #d4a652, #f4c980);
+			color: #2d1b08;
+			box-shadow: 0 12px 25px rgba(181, 127, 48, 0.36);
+		}
+		.btn-secondary {
+			color: #ffebca;
+			border-color: rgba(237, 191, 109, 0.46);
+			background: rgba(237, 191, 109, 0.13);
+		}
+		.btn:hover { transform: translateY(-3px); box-shadow: 0 15px 28px rgba(0, 0, 0, 0.35); }
+
+		.hero-photo-wrap {
+			grid-area: photo;
+			display: grid;
+			gap: 14px;
+			justify-items: center;
+		}
+		.hero-photo {
+			width: min(330px, 86%);
+			aspect-ratio: 1 / 1;
+			object-fit: cover;
+			border-radius: 20px;
+			border: 1px solid rgba(248, 206, 131, 0.65);
+			box-shadow: 0 17px 30px rgba(7, 4, 2, 0.55);
+			animation: floaty 4.4s ease-in-out infinite;
+		}
+		.hero-meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; width: 100%; }
+		.meta-pill {
+			background: rgba(237, 191, 109, 0.1);
+			border: 1px solid var(--line);
+			border-radius: 10px;
+			padding: 8px 10px;
+			text-align: center;
+			font-size: 0.84rem;
+			color: #f0d8b0;
+		}
+
+		main section { padding: 30px 0; scroll-margin-top: 100px; }
+		.section-title {
+			font-family: "Cinzel", serif;
+			font-size: clamp(1.36rem, 2.2vw, 2.02rem);
+			margin-bottom: 14px;
+			color: #ffedd0;
+			scroll-margin-top: 110px;
+			transition: color 0.35s ease, text-shadow 0.35s ease, transform 0.35s ease;
+		}
+		.section-title.focused-title {
+			animation: titleFocus 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+		}
+		.section-subtitle { color: #d6bc95; margin-bottom: 20px; max-width: 72ch; }
+		.card-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+		.card, .timeline-item, .contact-item {
+			background: linear-gradient(150deg, rgba(56, 37, 21, 0.8), rgba(29, 19, 11, 0.88));
+			border: 1px solid var(--line);
+			backdrop-filter: blur(8px);
+		}
+		.card { border-radius: var(--radius-md); padding: 17px; }
+		.small { font-size: 0.88rem; color: #e2c7a0; }
+
+		.timeline { position: relative; display: grid; gap: 12px; margin-top: 8px; }
+		.timeline::before {
+			content: "";
+			position: absolute;
+			left: 11px;
+			top: 2px;
+			bottom: 2px;
+			width: 2px;
+			background: linear-gradient(var(--accent), var(--accent-2));
+		}
+		.timeline-item { position: relative; margin-left: 34px; border-radius: 14px; padding: 14px; }
+		.timeline-item::before {
+			content: "";
+			position: absolute;
+			left: -29px;
+			top: 18px;
+			width: 14px;
+			height: 14px;
+			border-radius: 50%;
+			background: linear-gradient(120deg, var(--accent), var(--accent-2));
+		}
+		.timeline-item h4 { font-size: 1.03rem; margin-bottom: 5px; color: #fff3da; }
+		.timeline-item p, .timeline-item li { color: #e1c7a2; font-size: 0.92rem; }
+		.timeline-item ul { margin-top: 8px; padding-left: 16px; display: grid; gap: 6px; }
+
+		.chips { display: flex; flex-wrap: wrap; gap: 9px; }
+		.chip {
+			border-radius: 999px;
+			padding: 7px 11px;
+			font-size: 0.8rem;
+			border: 1px solid rgba(237, 191, 109, 0.4);
+			background: rgba(237, 191, 109, 0.12);
+			color: #f6dfb7;
+		}
+
+		.portfolio-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+		.portfolio-item {
+			border-radius: 16px;
+			overflow: hidden;
+			border: 1px solid var(--line);
+			background: #2a1a0f;
+			position: relative;
+			min-height: 220px;
+		}
+		.portfolio-item img { width: 100%; height: 100%; object-fit: cover; }
+		.portfolio-caption {
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			padding: 11px 12px;
+			background: linear-gradient(180deg, transparent, rgba(16, 10, 6, 0.93));
+			color: #ffeed1;
+			font-size: 0.88rem;
+		}
+
+		.contact-box { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+		.contact-item { border-radius: var(--radius-sm); padding: 14px; }
+		.contact-item strong {
+			display: block;
+			margin-bottom: 6px;
+			color: #f7d696;
+			font-size: 0.86rem;
+			text-transform: uppercase;
+		}
+
+		footer {
+			margin-top: 24px;
+			padding: 30px 0 46px;
+			color: #d7bc95;
+			font-size: 0.86rem;
+			text-align: center;
+		}
+
+		[data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 0.72s ease, transform 0.72s ease; }
+		[data-reveal].show { opacity: 1; transform: translateY(0); }
+
+		@keyframes flyRight {
+			0% {
+				transform: translate3d(0, 0, 0) rotate(-6deg);
+				opacity: 0;
+			}
+			8% {
+				opacity: 0.82;
+			}
+			50% {
+				transform: translate3d(70vw, -24px, 0) rotate(-2deg);
+				opacity: 0.78;
+			}
+			100% {
+				transform: translate3d(132vw, 20px, 0) rotate(4deg);
+				opacity: 0;
+			}
+		}
+
+		@keyframes flyLeft {
+			0% {
+				transform: translate3d(132vw, 0, 0) rotate(4deg);
+				opacity: 0;
+			}
+			8% {
+				opacity: 0.56;
+			}
+			50% {
+				transform: translate3d(44vw, -16px, 0) rotate(1deg);
+				opacity: 0.6;
+			}
+			100% {
+				transform: translate3d(-44vw, 14px, 0) rotate(-4deg);
+				opacity: 0;
+			}
+		}
+
+		@keyframes titleFocus {
+			0% {
+				transform: translateY(10px) scale(0.98);
+				color: #eac082;
+				text-shadow: 0 0 0 rgba(247, 214, 150, 0);
+			}
+			45% {
+				transform: translateY(0) scale(1.02);
+				color: #fff8e8;
+				text-shadow: 0 0 22px rgba(247, 214, 150, 0.38);
+			}
+			100% {
+				transform: translateY(0) scale(1);
+				color: #ffedd0;
+				text-shadow: 0 0 0 rgba(247, 214, 150, 0);
+			}
+		}
+
+		@keyframes floaty {
+			0%,
+			100% {
+				transform: translateY(0px);
+			}
+			50% {
+				transform: translateY(-10px);
+			}
+		}
+
+		@keyframes haloRotate {
+			0% {
+				transform: rotate(0deg);
+			}
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+
+		@keyframes shimmer {
+			0% {
+				left: -42%;
+			}
+			45% {
+				left: 128%;
+			}
+			100% {
+				left: 128%;
+			}
+		}
+
+		@media (max-width: 1050px) {
+			.hero-grid {
+				grid-template-columns: 1fr;
+				grid-template-areas:
+					"top"
+					"photo"
+					"bottom";
+			}
+			.card-grid, .portfolio-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+		}
+
+		@media (max-width: 900px) {
+			.nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+			nav {
+				position: absolute;
+				top: calc(100% + 8px);
+				left: auto;
+				right: 0;
+				width: fit-content;
+				max-width: min(92vw, 300px);
+				padding: 10px;
+				border-radius: 16px;
+				background: rgba(30, 20, 12, 0.97);
+				border: 1px solid var(--line);
+				display: grid;
+				gap: 6px;
+				opacity: 0;
+				pointer-events: none;
+				transform: translateY(-8px) scale(0.98);
+				transition: opacity 0.22s ease, transform 0.22s ease;
+			}
+			nav.open { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+			nav a {
+				width: auto;
+				justify-content: flex-start;
+				padding: 8px 10px;
+				min-width: 170px;
+			}
+			.language-switch {
+				width: auto;
+				justify-content: flex-start;
+				gap: 6px;
+				padding: 2px;
+				align-self: start;
+			}
+			.language-switch .lang-btn { justify-content: center; }
+		}
+
+		@media (max-width: 760px) {
+			.hero-grid {
+				padding: 20px;
+				gap: 12px;
+			}
+			.hero-copy-top .badge {
+				margin-bottom: 10px;
+			}
+			.hero-copy-top h1 {
+				margin-bottom: 8px;
+			}
+			.hero-copy-top .subtitle {
+				margin-bottom: 0;
+			}
+			.hero-copy-bottom p {
+				margin-bottom: 14px;
+			}
+			.hero-photo {
+				width: min(220px, 60%);
+			}
+			.hero-actions { flex-direction: column; }
+			.hero-actions .btn { width: 100%; }
+			.card-grid, .portfolio-grid, .contact-box, .hero-meta { grid-template-columns: 1fr; }
+			.timeline-item { margin-left: 26px; }
+			.timeline-item::before { left: -21px; }
+			.timeline::before { left: 11px; }
+			.flight.f2,
+			.flight.f4 {
+				display: none;
+			}
+			.flight::before {
+				font-size: 25px;
+			}
+			.flight::after {
+				width: 130px;
+			}
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			.flight {
+				animation: none;
+				opacity: 0.2;
+			}
+			.hero-card::before,
+			.hero-card::after,
+			.hero-photo {
+				animation: none;
+			}
+			.hero-grid {
+				transition: none;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="flight-layer" aria-hidden="true">
+		<span class="flight f1"></span>
+		<span class="flight f2"></span>
+		<span class="flight f3"></span>
+		<span class="flight f4"></span>
+	</div>
+	<div class="scroll-progress" aria-hidden="true"></div>
+	<header class="topbar">
+		<div class="container topbar-wrap">
+			<a class="brand" href="#home">Miftah Saifulloh</a>
+			<button class="nav-toggle" aria-label="Buka menu" aria-expanded="false" aria-controls="main-nav">&#9776;</button>
+			<nav id="main-nav">
+				<a href="#home" data-i18n="navHome">Home</a>
+				<a href="#pendidikan" data-i18n="navEducation">Education</a>
+				<a href="#seminar-workshop" data-i18n="navSeminarWorkshop">Seminar &amp; Workshop</a>
+				<a href="#sertifikat" data-i18n="navCertTraining">Certification, Courses &amp; Training</a>
+				<a href="#pengalaman" data-i18n="navExperience">Pengalaman</a>
+				<a href="#portfolio" data-i18n="navPortfolio">Portfolio</a>
+				<div class="language-switch" aria-label="Language switch">
+					<button class="lang-btn" data-lang="id">ID</button>
+					<button class="lang-btn active" data-lang="en">EN</button>
+				</div>
+			</nav>
+		</div>
+	</header>
+
+	<section id="home" class="hero">
+		<div class="container">
+			<div class="hero-card" data-reveal>
+				<div class="hero-grid">
+					<div class="hero-copy-top">
+						<h1 data-i18n="name">Miftah Saifulloh</h1>
+						<p class="subtitle" data-i18n="headline">Computer Science and Industrial Automation</p>
+					</div>
+					<div class="hero-photo-wrap">
+						<img class="hero-photo" src="miftahsaifulloh.jpg?auto=format&fit=crop&w=900&q=80" alt="Professional portrait" />
+						<div class="hero-meta">
+							<div class="meta-pill" data-i18n="metaDate">1 December 1987</div>
+							<div class="meta-pill" data-i18n="metaStatus">Married</div>
+							<div class="meta-pill" data-i18n="metaReligion">Muslim</div>
+						</div>
+					</div>
+					<div class="hero-copy-bottom">
+						<p data-i18n="heroDescription">Technology professional with experience in software development, information systems, instrumentation, and automation across desktop, web, mobile, and systems integration. Background includes Project Programmer, Java Developer, .NET Developer, Full-Stack Developer, System Analyst, Instrumentation Engineer, and Automation Engineer. Experienced with Java, .NET, Microsoft Visual Studio, Android Development, iOS Development, and supporting technologies to build efficient, reliable solutions aligned with business needs and digital transformation.</p>
+						<div class="hero-actions">
+							<a href="https://api.whatsapp.com/send?phone=6287734148075&text=Hello%20Mr.%20Miftah%20Saifulloh%20?" class="btn btn-primary" data-i18n="btnContact" target="_blank">Hubungi Saya</a>
+							<a href="https://www.linkedin.com/in/miftah-saifulloh-mip-%F0%9F%87%A9%F0%9F%87%AA-9bb196266/" class="btn btn-secondary" data-i18n="btnWork" target="_blank">Linkedin</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="contact">
+		<div class="container" data-reveal>
+				<h2 class="section-title" data-i18n="contactTitle">Contact</h2>
+			<div class="contact-box">
+				<article class="contact-item">
+					<strong>E-mail</strong>
+					<p><a href="mailto:miftahsaifulloh@outlook.co.id" style="text-decoration: none; color: inherit;" target="_blank">miftahsaifulloh@outlook.co.id</a></p>
+				</article>
+				<article class="contact-item">
+					<strong>Mobile / WhatsApp</strong>
+					<p><a href="https://api.whatsapp.com/send?phone=6287734148075&text=Hello%20Mr.%20Miftah%20Saifulloh%20?" style="text-decoration: none; color: inherit;" target="_blank">+62 877 3414 8075</a></p>
+				</article>
+			</div>
+		</div>
+	</section>
+	
+	<main>
+
+		<section id="pendidikan">
+			<div class="container" data-reveal>
+				<h2 class="section-title" data-i18n="eduTitle">Education</h2>
+				<div class="timeline">
+					<article class="timeline-item">
+						<h4>Universitas Pendidikan Indonesia</h4>
+						<p class="small">28 July 2009 - 30 August 2013</p>
+						<p class="small">Bachelor of Computer Science (B.Comp.Sc)</p>
+						<p class="small">IPK 3.18</p>
+						<p data-i18n="edu1Desc">
+							Thesis: Implementation of Fuzzy Logic Sugeno for microcontroller-based storage room temperature control.
+						</p>
+					</article>
+					<article class="timeline-item">
+						<h4>STT Telkom / IT Telkom / Universitas Telkom</h4>
+						<p class="small">6 September 2006 - 29 August 2007</p>
+						<p class="small">Industrial Automation - Professional Program (P2Pro) / Diploma</p>
+						<p class="small">IPK 3.61 (Magna Cum Laude)</p>
+						<p data-i18n="edu2Desc">
+							Designed and implemented a bottling plant automation system to monitor and control the production process.
+						</p>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section id="profil">
+			<div class="container" data-reveal>
+				<h2 class="section-title" data-i18n="prestasiTitle">Achievements</h2>
+				<div class="card-grid">
+					<article class="card">
+						<h3 data-i18n="achievementEduTitle">Academic Achievement</h3>
+						<p class="small" data-i18n="achievementEduDesc">
+							Recognized as an outstanding/best student at STT Telkom / IT Telkom on 29 August 2007.
+						</p>
+					</article>
+					<article class="card">
+						<h3 data-i18n="achievementWorkTitle">Work Achievement</h3>
+						<p class="small" data-i18n="achievementWorkDesc">
+							Best Practice recognition for e-learning development at Telkom University on 12 March 2014.
+						</p>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section id="seminar-workshop">
+			<div class="container" data-reveal>
+				<h2 class="section-title" data-i18n="seminarWorkshopTitle">National / International Seminars &amp; Workshops</h2>
+
+				<p class="section-subtitle" data-i18n="seminarWorkshopSubtitle">
+					Actively participates in national and international seminars and workshops.
+				</p>
+
+				<div class="timeline">
+
+					<article class="timeline-item">
+						<h4 data-i18n="nationalInternationalSeminars">National &amp; International Seminars</h4>
+						<p class="small">2005 - 2023</p>
+						<ul>
+							<li>The Role of Spatial Data Science in the Life of Industrial Society 4.0 ● Institut Teknologi Bandung (ITB) ● 28 January 2023</li>
+							<li>101 Lessons on How to Build Your Career as an IoT Engineer ● Edspert.ID ● 20 January 2023</li>
+							<li>Digital Governance: Digitalization Acceleration for Consumer Protection ● Warta Ekonomi ● 17 January 2023</li>
+							<li>6th Annual Islamic Finance Conference (AIFC) ● Kemenkeu RI & G20 Indonesia ● 24-25 August 2022</li>
+							<li>West Java Economic Society: Post-Pandemic Economic Recovery ● Bank Indonesia ● 25 November 2020</li>
+							<li>Mathematics, Science and Computer Science Education ● Universitas Pendidikan Indonesia ● October 19th 2013</li>
+							<li>Opening The Gate to 4G Mobile ● Institut Teknologi Telkom (IT Telkom) ● February 13th, 2010</li>
+							<li>Bridging Campus Life and Work Through an IT Adventure ● Universitas Pendidikan Indonesia ● 31 August 2009</li>
+							<li>Leveraging Information Technology for Education ● Bina Sarana Informatika (BSI) ● 26 March 2005</li>
+						</ul>
+					</article>
+
+					<article class="timeline-item">
+						<h4 data-i18n="professionalWorkshops">Professional Workshops</h4>
+						<p class="small">2009 - 2014</p>
+						<ul>
+							<li>e-Learning Workshop ● Telkom University ● 12 March 2014</li>
+							<li>Adobe Flash CS4 Graphic Design Class ● Universitas Pendidikan Indonesia ● 1 and 8 November 2009</li>
+							<li>Robotics Mechanics and Electronics Workshop ● Institut Teknologi Telkom (IT Telkom) ● 17 February 2010</li>
+						</ul>
+					</article>
+
+				</div>
+			</div>
+		</section>
+
+		<section id="sertifikat">
+			<div class="container" data-reveal>
+					<h2 class="section-title" data-i18n="certTitle">Certification, Courses &amp; Training</h2>
+				
+					<p class="section-subtitle" data-i18n="certSubtitle">
+						Experienced in software development, applications, information systems, instrumentation, and automation. Background includes Project Programmer, Software Developer, Java Developer, .NET Developer, Full-Stack Developer, Backend & Front-End Developer, Mobile & Web Application Developer, System Analyst, Instrumentation Engineer, Automation Engineer, and IT Professional. Focused on digital solutions, systems integration, and automation to deliver innovative, efficient, reliable systems aligned with organizational needs.
+				</p>
+
+				<div class="chips">
+					<span class="chip">Java</span>
+					<span class="chip">C / C++ / C#</span>
+					<span class="chip">Go (Golang)</span>
+					<span class="chip">PHP</span>
+					<span class="chip">Dart (Flutter)</span>
+					<span class="chip">Kotlin</span>
+					<span class="chip">Swift</span>
+
+					<span class="chip">Android Development</span>
+					<span class="chip">iOS Development</span>
+					<span class="chip">Flutter</span>
+					<span class="chip">React Native</span>
+					<span class="chip">Node.js</span>
+					<span class="chip">Angular</span>
+					<span class="chip">NestJS</span>
+
+					<span class="chip">Fullstack Development</span>
+					<span class="chip">Frontend</span>
+					<span class="chip">Backend</span>
+					<span class="chip">RESTful API</span>
+
+					<span class="chip">AWS</span>
+					<span class="chip">Linux / Unix</span>
+					<span class="chip">Docker</span>
+					<span class="chip">Git</span>
+					<span class="chip">CI/CD</span>
+
+					<span class="chip">Machine Learning</span>
+					<span class="chip">Artificial Intelligence</span>
+					<span class="chip">Data Science</span>
+
+					<span class="chip">Cyber Security</span>
+					<span class="chip">API Security</span>
+
+					<span class="chip">MySQL</span>
+					<span class="chip">PostgreSQL</span>
+					<span class="chip">SQL Server</span>
+
+					<span class="chip">Arduino</span>
+					<span class="chip">Embedded Systems</span>
+
+					<span class="chip">UI/UX Design</span>
+					<span class="chip">Adobe Creative Suite</span>
+					<span class="chip">Blender</span>
+					<span class="chip">AutoCAD</span>
+
+					<span class="chip">MATLAB</span>
+					<span class="chip">Networking</span>
+					<span class="chip">SEO</span>
+					<span class="chip">And other competencies</span>
+				</div>
+			</div>
+		</section>
+		
+		<section id="diklat-pendidikan">
+			<div class="container" data-reveal>
+				<h2 class="section-title" data-i18n="educationTrainingTitle">Education Training &amp; Development</h2>
+
+				<p class="section-subtitle" data-i18n="educationTrainingSubtitle">
+					Education and training certificates in teaching, curriculum development,
+					and educator competency improvement to support modern learning implementation.
+				</p>
+
+				<div class="timeline">
+
+					<article class="timeline-item">
+						<h4>Improving Elementary School Quality Through the Implementation of the Merdeka Belajar Curriculum</h4>
+						<p class="small">18 - 21 May 2023</p>
+						<p class="small">SMA Negeri 13 Kota Bandung</p>
+						<ul>
+							<li>Training on the implementation of the Merdeka Belajar curriculum</li>
+							<li>Competency-based learning method development</li>
+							<li>Improving the quality of teaching and learning processes</li>
+							<li>Strengthening educator competencies in educational transformation</li>
+						</ul>
+					</article>
+
+				</div>
+			</div>
+		</section>
+		
+		<section id="pelatihan-bumn">
+			<div class="container" data-reveal>
+					<h2 class="section-title" data-i18n="professionalTrainingTitle">Professional Training &amp; Certification</h2>
+
+				<p class="section-subtitle" data-i18n="professionalTrainingSubtitle">
+						Training certificates and professional competency development supporting job readiness and career growth.
+				</p>
+
+				<div class="timeline">
+
+					<article class="timeline-item">
+						<h4>Learning Management System (LMS) Onboarding Program</h4>
+						<p class="small">3 October 2025</p>
+						<p class="small">BUMN (Badan Usaha Milik Negara)</p>
+						<ul>
+							<li>Orientation program and introduction to the SOE work environment</li>
+							<li>Professional competency and work culture development</li>
+							<li>Learning Management System (LMS)-based learning</li>
+						</ul>
+					</article>
+
+				</div>
+			</div>
+		</section>
+
+		<section id="hospital-training">
+			<div class="container" data-reveal>
+					<h2 class="section-title" data-i18n="hospitalTrainingTitle">Hospital Training &amp; Certification</h2>
+
+				<p class="section-subtitle" data-i18n="hospitalTrainingSubtitle">
+						Has training certificates and competency development in healthcare,
+						hospital safety, service communication, infection control, and basic life support.
+				</p>
+
+				<div class="timeline">
+
+					<article class="timeline-item">
+						<h4>Harvard Medical School</h4>
+						<p class="small">8 December 2020</p>
+						<p class="small">International Healthcare Training</p>
+						<ul>
+							<li>Healthcare and Medical Education Program</li>
+						</ul>
+					</article>
+
+					<article class="timeline-item">
+						<h4>Santosa Hospital</h4>
+						<p class="small">2024 - 2025</p>
+						<p class="small">Hospital Training & Development</p>
+						<ul>
+							<li>New Employee General Orientation ● 20 - 21 June 2024</li>
+							<li>Effective Communication Training for New Employees ● 24 May 2024</li>
+							<li>Infection Prevention and Control (IPC) for Clinical and Non-Clinical Staff ● 27 - 28 May 2024</li>
+							<li>Facility and Safety Management (FSM) ● Hospital K3 Committee ● 31 May 2024</li>
+							<li>Basic Life Support Training ● 28 January 2025</li>
+						</ul>
+					</article>
+
+				</div>
+				
+			</div>
+				
+		</section>
+
+		<section id="profil">
+			<div class="container" data-reveal>
+					<h2 class="section-title" data-i18n="contributionTitle">Contribution</h2>
+				<div class="card-grid">
+					<article class="card">
+							<h3 data-i18n="">IT Quiz Committee for Community Service Program (KKN)</h3>
+							<p class="small">1 January 2013 - 1 March 2013</p>
+							<p class="small">Universitas Pendidikan Indonesia</p>
+						<p class="small" data-i18n="">
+								As IT committee member for the quiz competition within the Community Service Program (KKN), responsible for participant application development, information technology infrastructure management, technical support, and ensuring the event operations ran effectively and smoothly.</p>
+					</article>
+				</div>
+			</div>
+		</section>
+
+
+		<section id="pengalaman">
+			<div class="container" data-reveal>
+				<h2 class="section-title" data-i18n="expTitle">Work Experience</h2>
+				
+				<div class="timeline">
+					<article class="timeline-item">
+						<h4>Nawa Data (Vendor PT Pamapersada Nusantara)</h4>
+						<p class="small">26 October 2025 - Present</p>
+						<p class="small">Jakarta Timur, Jakarta Raya, Indonesia</p>
+						<p class="small">Mining Contractor</p>
+						<p class="small">PS .NET Developer</p>
+					</article>
+					<article class="timeline-item">
+						<h4>Santosa Hospital</h4>
+						<p class="small">1 May 2024 - 8 September 2025</p>
+						<p class="small">Hospital</p>
+						<p class="small">IT Operations, Management Information System & IT Support</p>
+						<p class="small">Hospital application projects developed outside regular duties using Microsoft Visual Studio:</p>
+						<ul>
+							<li>Laundry Management System</li>
+							<li>Invoicing & Billing Application</li>
+							<li>Human Capital Application Website (Leave Office Form)</li>
+						</ul>
+					</article>
+					<article class="timeline-item">
+						<h4>PT Hasta Daya Teknik</h4>
+						<p class="small">6 May 2022 - 6 May 2024</p>
+						<p class="small">Aerospace</p>
+						<p class="small">Instrumentation Engineer, IT Staff & Industrial Automation Engineer</p>
+						<p>Project Smoke Detector Test Bench for Boeing Aircraft.</p>
+					</article>
+					<article class="timeline-item">
+						<h4>PT Dwidasa Samsara Indonesia</h4>
+						<p class="small">6 September 2021 - 6 September 2022</p>
+						<p class="small">Tangerang, Banten, Indonesia</p>
+						<p class="small">Banking</p>
+						<p class="small">Project Programming / Programmer / Backend Developer</p>
+						<ul>
+							<li>KYC - Financial Services</li>
+							<li>FinCloud 2.0</li>
+							<li>Loan Origination System (LOS) REST API</li>
+						</ul>
+					</article>
+					<article class="timeline-item">
+						<h4>PT Teradata Megah</h4>
+						<p class="small">15 May 2019 - 31 August 2021</p>
+						<p class="small">Banking</p>
+						<p class="small">Projects Mobile Application Developer & Web Application Developer</p>
+						<ul>
+							<li>Digital Solution Billing School (DSBill)</li>
+							<li>Bank Hasamitra (Makassar)</li>
+							<li>Bank Eka (Bandar Lampung)</li>
+							<li>Bank BPD Kalsel</li>
+							<li>Bank Subang</li>
+							<li>Tamim Silk Textile Application</li>
+							<li>Application Website Development</li>
+							<li>Android &amp; iOS Mobile Application Development</li>
+						</ul>
+					</article>
+					<article class="timeline-item">
+						<h4>PD KK Distribusi</h4>
+						<p class="small">18 March 2017 - 30 April 2019</p>
+						<p class="small">Food and Grocery Retail</p>
+						<p class="small">Projects Mobile Android Application & Web Application Developer</p>
+						<ul>
+							<li>KK Distribusi Management Order Schedule &amp; Map Cluster Application Website</li>
+							<li>KK Distribusi Android Mobile Application</li>
+							<li>Lumayan Android Mobile Application</li>
+						</ul>
+					</article>
+					<article class="timeline-item">
+						<h4>Telkom University</h4>
+						<p class="small">23 November 2012 - 3 December 2016</p>
+						<p class="small">Education</p>
+						<p class="small">Assistant Lecturer - Industrial Engineering (Sispromasi Laboratory)</p>
+						<p class="small">Information Systems IT Staff & Programmer:</p>
+						<ul>
+							<li>Industrial Engineering E-Learning</li>
+							<li>Faculty of Industrial Engineering (FRI) Website</li>
+							<li>Website Telkom University</li>
+						</ul>
+					</article>
+					<article class="timeline-item">
+						<h4>PT Rekayasa Teknologi Indonesia (Rekatindo)</h4>
+						<p class="small">7 Juli 2015 - 7 Juli 2016</p>
+						<p class="small">Jakarta Timur, Jakarta Raya, Indonesia</p>
+						<p class="small">Aerospace</p>
+						<p class="small">Instrumentation & Control Engineer</p>
+						<ul>
+							<li>Mobile Air Traffic Control Tower Project</li>
+							<li>Work placement: Indonesian Air Force & Halim Perdanakusuma International Airport</li>
+							<li>Installation and support of instrumentation & control systems</li>
+						</ul>
+					</article>
+					<article class="timeline-item">
+						<h4>CV Arion Teknik Mandiri (Artek)</h4>
+						<p class="small">23 November 2007 - 3 December 2009</p>
+						<p class="small">Tangerang, Banten, Indonesia</p>
+						<p class="small">Heating, Ventilation, and Air Conditioning (HVAC)</p>
+						<p class="small">Instrumentation Technician (Academic Training)</p>
+						<ul>
+							<li>Project Precision Air Conditioner (PAC) Systems / Precision HVAC Units</li>
+							<li>HVAC system installation and development at PT Forisa Nusapersada</li>
+							<li>Technical support for HVAC instrumentation systems</li>
+						</ul>
+					</article>
+					<article class="timeline-item">
+						<h4>PT Putra Bangsa Sejati</h4>
+						<p class="small">17 October 2010 - 17 October 2011</p>
+						<p class="small">Cimahi, Jawa Barat, Indonesia</p>
+						<p class="small">Aerospace</p>
+						<p class="small">System Analyst</p>
+						<ul>
+							<li>Electronics & Timing Calibration Test Bench Project</li>
+							<li>System analysis for aerospace device testing requirements</li>
+							<li>Support for test system development and documentation</li>
+						</ul>
+					</article>
+					<article class="timeline-item">
+						<h4>CV Arion Teknik Mandiri (Artek)</h4>
+						<p class="small">23 November 2007 - 3 December 2009</p>
+						<p class="small">Surabaya, Jawa Timur, Indonesia</p>
+						<p class="small">Heating, Ventilation, and Air Conditioning (HVAC)</p>
+						<p class="small">Instrumentation Supervisor</p>
+						<ul>
+							<li>Project Climatic Chamber (HVAC Systems)</li>
+							<li>Installation and supervision of HVAC instrumentation systems</li>
+							<li>Work placement at the Surabaya Industrial Services and Standardization Center</li>
+						</ul>
+					</article>
+					<article class="timeline-item">
+						<h4>PT Agronesia Divisi Inkaba</h4>
+						<p class="small">1 February 2007 - 1 August 2007</p>
+						<p class="small">Rubber Factory</p>
+						<p class="small">Documentation Specialist (Field Work Practice)</p>
+						<ul>
+							<li>Management and maintenance of company documentation</li>
+							<li>Archiving operational and administrative documents</li>
+							<li>Controlling document completeness and accuracy</li>
+							<li>Documentation support for rubber factory production processes</li>
+						</ul>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		
+		<section id="portfolio">
+			<div class="container" data-reveal>
+				<h2 class="section-title" data-i18n="portfolioTitle">Work Activity Portfolio</h2>
+				<p class="section-subtitle" data-i18n="portfolioSubtitle">
+					Documentation of work activities and instrumentation projects
+				</p>
+				<div class="portfolio-grid">
+					<figure class="portfolio-item">
+						<img
+							src="me_my_father_1.png?auto=format&fit=crop&w=1200&q=80"
+							alt="Sample instrumentation work activity"
+						/>
+						<figcaption class="portfolio-caption">Calibration</figcaption>
+					</figure>
+					<figure class="portfolio-item">
+						<img
+							src="me.png?auto=format&fit=crop&w=1200&q=80"
+							alt="Sample automation and system testing activity"
+						/>
+						<figcaption class="portfolio-caption">System Testing</figcaption>
+					</figure>
+
+					<figure class="portfolio-item">
+						<img
+							src="me_my_father_2.png?auto=format&fit=crop&w=1200&q=80"
+							alt="Sample software development activity"
+						/>
+						<figcaption class="portfolio-caption">Adjustment</figcaption>
+					</figure>
+				</div>
+			</div>
+		</section>
+
+		
+	</main>
+
+	<footer>
+		<div class="container">
+			<p>&copy; 2026 Miftah Saifulloh</p>
+			<div class="social-links" style="margin-top: 1.5rem; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+				<a href="https://api.whatsapp.com/send?phone=6287734148075&text=Hello%20Mr.%20Miftah%20Saifulloh%20?" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; font-size: 1.1rem; transition: color 0.3s;" title="WhatsApp">
+					<span><i class="fab fa-whatsapp"></i> <span data-i18n="whatsapp">WhatsApp</span></span>
+				</a>
+				<a href="https://www.youtube.com/@miftah-saifulloh" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; font-size: 1.1rem; transition: color 0.3s;" title="YouTube">
+					<span><i class="fab fa-youtube"></i> <span data-i18n="youtube">YouTube</span></span>
+				</a>
+				<a href="https://www.facebook.com/people/Miftah-Saifulloh/pfbid0RUsBEknk1qRYmDNJXfzdnVTpBMTmu8Px71qkK95ApodcV3gQXKqnoQT48ngDbBkXl/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; font-size: 1.1rem; transition: color 0.3s;" title="Facebook">
+					<span><i class="fab fa-facebook"></i> <span data-i18n="facebook">Facebook</span></span>
+				</a>
+				<a href="https://www.tiktok.com/@miftah_saifulloh" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; font-size: 1.1rem; transition: color 0.3s;" title="TikTok">
+					<span><i class="fab fa-tiktok"></i> <span data-i18n="tiktok">TikTok</span></span>
+				</a>
+				<a href="https://www.instagram.com/miftah_saifulloh" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; font-size: 1.1rem; transition: color 0.3s;" title="Instagram">
+					<span><i class="fab fa-instagram"></i> <span data-i18n="instagram">Instagram</span></span>
+				</a>
+				<a href="http://djadjangsudradjat.github.io" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; font-size: 1.1rem; transition: color 0.3s;" title="Website Ayah">
+					<span><i class="fa-solid fa-user-tie"></i> <span data-i18n="fatherLink">My Father</span></span>
+				</a>
+				<a href="http://muftisaifudin.netlify.app" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit; font-size: 1.1rem; transition: color 0.3s;" title="Website Kakak">
+					<span><i class="fa-solid fa-user"></i> <span data-i18n="brotherLink">My Brother</span></span>
+				</a>
+			</div>
+		</div>
+	</footer>
+
+	<script>
+		const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+		const supportsFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+		const progressBar = document.querySelector(".scroll-progress");
+		const topbar = document.querySelector(".topbar");
+		const navMenu = document.getElementById("main-nav");
+		const navToggle = document.querySelector(".nav-toggle");
+		const navLinks = Array.from(document.querySelectorAll("#main-nav a[href^='#']"));
+		let pendingNavId = null;
+		let pendingNavTimer = null;
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add("show");
+					}
+				});
+			},
+			{
+				threshold: 0.08,
+				rootMargin: "0px 0px -8% 0px",
+			}
+		);
+
+		document.querySelectorAll("[data-reveal]").forEach((el, index) => {
+			el.style.transitionDelay = `${Math.min(index * 90, 360)}ms`;
+			observer.observe(el);
+		});
+
+		function updateScrollProgress() {
+			const scrollTop = window.scrollY;
+			const total = document.documentElement.scrollHeight - window.innerHeight;
+			const progress = total > 0 ? (scrollTop / total) * 100 : 0;
+			progressBar.style.width = `${Math.min(progress, 100)}%`;
+		}
+
+		function updateActiveSection() {
+			const hashTarget = getSectionByHash(window.location.hash);
+			if (hashTarget && navLinks.some((link) => link.getAttribute("href") === `#${hashTarget.id}`)) {
+				const rect = hashTarget.section.getBoundingClientRect();
+				const topBoundary = topbar ? topbar.offsetHeight + 40 : 40;
+				const isVisible = rect.top < window.innerHeight && rect.bottom > topBoundary;
+
+				if (isVisible) {
+					setActiveNavById(hashTarget.id);
+					return;
+				}
+			}
+			const marker = window.scrollY + 180;
+			let activeId = "home";
+
+			navLinks.forEach((link) => {
+				const section = document.querySelector(link.getAttribute("href"));
+				if (section && section.offsetTop <= marker) {
+					activeId = section.id;
+				}
+			});
+
+			navLinks.forEach((link) => {
+				link.classList.toggle("active-nav", link.getAttribute("href") === `#${activeId}`);
+			});
+		}
+
+		function setActiveNavById(activeId) {
+			navLinks.forEach((link) => {
+				link.classList.toggle("active-nav", link.getAttribute("href") === `#${activeId}`);
+			});
+		}
+
+		function queuePendingNav(activeId) {
+			pendingNavId = activeId;
+			if (pendingNavTimer) {
+				clearTimeout(pendingNavTimer);
+			}
+
+			pendingNavTimer = window.setTimeout(() => {
+				if (pendingNavId) {
+					setActiveNavById(pendingNavId);
+					pendingNavId = null;
+				}
+				pendingNavTimer = null;
+			}, 180);
+		}
+
+		function animateScrollTo(targetTop, duration = 720) {
+			if (prefersReducedMotion) {
+				window.scrollTo(0, targetTop);
+				return Promise.resolve();
+			}
+
+			const startTop = window.scrollY;
+			const distance = targetTop - startTop;
+			const startTime = performance.now();
+
+			return new Promise((resolve) => {
+				const step = (currentTime) => {
+					const elapsed = currentTime - startTime;
+					const progress = Math.min(elapsed / duration, 1);
+					const eased = progress < 0.5
+						? 4 * progress * progress * progress
+						: 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+					window.scrollTo(0, startTop + distance * eased);
+
+					if (progress < 1) {
+						requestAnimationFrame(step);
+					} else {
+						resolve();
+					}
+				};
+
+				requestAnimationFrame(step);
+			});
+		}
+
+		function getSectionByHash(hash) {
+			if (!hash || !hash.startsWith("#")) {
+				return null;
+			}
+
+			const id = decodeURIComponent(hash.slice(1));
+			if (!id) {
+				return null;
+			}
+
+			const section = document.getElementById(id);
+			return section ? { id, section } : null;
+		}
+
+		function revealSectionIfNeeded(section) {
+			const revealTarget = section.querySelector("[data-reveal]");
+			if (revealTarget) {
+				revealTarget.classList.add("show");
+			}
+		}
+
+		function navigateToSection(section, sectionId, smooth = true) {
+			const headerOffset = (topbar ? topbar.offsetHeight : 0) + 14;
+			const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+			const targetTop = Math.max(0, sectionTop - headerOffset);
+			queuePendingNav(sectionId);
+
+			revealSectionIfNeeded(section);
+			if (smooth && !prefersReducedMotion) {
+				animateScrollTo(targetTop).then(() => {
+					setActiveNavById(sectionId);
+					pendingNavId = null;
+				});
+			} else {
+				window.scrollTo(0, targetTop);
+				setActiveNavById(sectionId);
+				pendingNavId = null;
+			}
+			focusSectionTitle(section);
+		}
+
+		function focusSectionTitle(section) {
+			const title = section.querySelector(".section-title");
+			if (!title) {
+				return;
+			}
+
+			title.classList.remove("focused-title");
+			void title.offsetWidth;
+			title.classList.add("focused-title");
+
+			setTimeout(() => {
+				title.classList.remove("focused-title");
+			}, 1250);
+		}
+
+		window.addEventListener("scroll", () => {
+			updateScrollProgress();
+			if (pendingNavId) {
+				if (pendingNavTimer) {
+					clearTimeout(pendingNavTimer);
+				}
+
+				pendingNavTimer = window.setTimeout(() => {
+					if (pendingNavId) {
+						setActiveNavById(pendingNavId);
+						pendingNavId = null;
+					}
+					pendingNavTimer = null;
+				}, 180);
+				return;
+			}
+
+			updateActiveSection();
+		});
+
+		if (navToggle && navMenu) {
+			navToggle.addEventListener("click", () => {
+				const expanded = navToggle.getAttribute("aria-expanded") === "true";
+				navToggle.setAttribute("aria-expanded", String(!expanded));
+				navMenu.classList.toggle("open");
+			});
+
+			navLinks.forEach((link) => {
+				link.addEventListener("click", (event) => {
+					const targetHash = link.getAttribute("href");
+					const target = targetHash ? getSectionByHash(targetHash) : null;
+
+					if (target) {
+						event.preventDefault();
+						navigateToSection(target.section, target.id, true);
+						history.replaceState(null, "", `#${target.id}`);
+					}
+
+					if (window.innerWidth <= 900) {
+						navMenu.classList.remove("open");
+						navToggle.setAttribute("aria-expanded", "false");
+					}
+				});
+			});
+
+			window.addEventListener("resize", () => {
+				if (window.innerWidth > 900) {
+					navMenu.classList.remove("open");
+					navToggle.setAttribute("aria-expanded", "false");
+				}
+			});
+		}
+
+		window.addEventListener("hashchange", () => {
+			const target = getSectionByHash(window.location.hash);
+			if (target) {
+				queuePendingNav(target.id);
+				navigateToSection(target.section, target.id, false);
+			}
+		});
+
+		updateScrollProgress();
+		updateActiveSection();
+
+		const initialTarget = getSectionByHash(window.location.hash);
+		if (initialTarget) {
+			requestAnimationFrame(() => {
+				navigateToSection(initialTarget.section, initialTarget.id, false);
+			});
+		}
+
+		if (!prefersReducedMotion && supportsFinePointer) {
+			document.querySelectorAll(".hero-card").forEach((card) => {
+				const panel = card.querySelector(".hero-grid");
+				if (!panel) {
+					return;
+				}
+
+				let targetX = 0;
+				let targetY = 0;
+				let currentX = 0;
+				let currentY = 0;
+				let rafId = null;
+
+				const resetPosition = () => {
+					targetX = 0;
+					targetY = 0;
+					queueAnimation();
+				};
+
+				const animate = () => {
+					currentX += (targetX - currentX) * 0.1;
+					currentY += (targetY - currentY) * 0.1;
+					panel.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+
+					if (Math.abs(targetX - currentX) > 0.05 || Math.abs(targetY - currentY) > 0.05) {
+						rafId = requestAnimationFrame(animate);
+					} else {
+						rafId = null;
+					}
+				};
+
+				const queueAnimation = () => {
+					if (!rafId) {
+						rafId = requestAnimationFrame(animate);
+					}
+				};
+
+				card.addEventListener("pointermove", (event) => {
+					const rect = card.getBoundingClientRect();
+					const px = (event.clientX - rect.left) / rect.width - 0.5;
+					const py = (event.clientY - rect.top) / rect.height - 0.5;
+					targetX = px * -10;
+					targetY = py * -8;
+					queueAnimation();
+				});
+
+				card.addEventListener("pointerleave", resetPosition);
+				card.addEventListener("pointercancel", resetPosition);
+				window.addEventListener("blur", resetPosition);
+			});
+
+			document.querySelectorAll(".portfolio-item").forEach((card) => {
+				card.addEventListener("mousemove", (event) => {
+					const rect = card.getBoundingClientRect();
+					const px = ((event.clientX - rect.left) / rect.width - 0.5) * 6;
+					const py = ((event.clientY - rect.top) / rect.height - 0.5) * -6;
+					card.style.transform = `perspective(700px) rotateX(${py}deg) rotateY(${px}deg) translateY(-2px)`;
+				});
+
+				card.addEventListener("mouseleave", () => {
+					card.style.transform = "";
+				});
+			});
+		}
+
+		const dictionary = {
+			id: {
+				navHome: "Beranda",
+				navProfile: "Profil Singkat",
+				navEducation: "Pendidikan",
+				navExperience: "Pengalaman",
+				navPortfolio: "Portofolio",
+				navSeminarWorkshop: "Seminar & Workshop",
+				navCertTraining: "Sertifikasi, Kursus & Pelatihan",
+				navFamily: "Keluarga",
+				heroBadge: "Premium Gold Portfolio",
+				name: "Miftah Saifulloh",
+				headline: "Computer Science dan Industrial Automation Engineer",
+				heroDescription:
+					"Profesional berpengalaman dalam pengembangan software, aplikasi, sistem informasi, instrumentasi, dan otomasi. Memiliki latar belakang sebagai Project Programmer, Software Developer, Java Developer, .NET Developer, Full-Stack Developer, Backend & Front-End Developer, Mobile & Web Application Developer, System Analyst, Instrumentation Engineer, Automation Engineer, dan IT Professional. Berdedikasi untuk mengembangkan solusi digital, integrasi sistem, dan teknologi otomasi yang inovatif, efisien, andal, dan selaras dengan kebutuhan organisasi.",
+				btnContact: "Hubungi Saya",
+				btnWork: "LinkedIn",
+				metaDate: "1 Desember 1987",
+				metaStatus: "Menikah",
+				metaReligion: "Muslim",
+				prestasiTitle: "Prestasi",
+				achievementEduTitle: "Prestasi Pendidikan",
+				achievementEduDesc:
+					"Penghargaan siswa berprestasi/terbaik di STT Telkom / IT Telkom (29 Agustus 2007).",
+				achievementWorkTitle: "Prestasi Kerja",
+				achievementWorkDesc:
+					"Penghargaan Best Practice untuk pengembangan e-learning di Telkom University (12 Maret 2014).",
+				internshipTitle: "Magang",
+				internshipDesc:
+					"PT Putra Bangsa Sejati, System Analyst, Proyek Electronics and Timing Calibration Test Bench (Aerospace).",
+				eduTitle: "Pendidikan",
+				edu1Desc:
+					"Skripsi: Implementasi Fuzzy Logic Sugeno pada pengaturan suhu ruang penyimpanan berbasis mikrokontroler.",
+				edu2Desc:
+					"Perancangan dan implementasi sistem otomasi bottling plant untuk pemantauan dan pengendalian proses produksi.",
+				edu3Point1: "Inisiator pembuatan buku kenangan angkatan 2005.",
+				edu3Point2: "Peserta lomba website sekolah dan juara 10 se-Jawa Barat (2004).",
+				edu3Point3: "Panitia OSIS, upacara bendera, dan kegiatan outbound sekolah.",
+				expTitle: "Pengalaman Bekerja",
+				expSubtitle:
+					"Rekam jejak lintas sektor dengan kontribusi pada pengembangan aplikasi, otomasi industri, kontrol instrumentasi, dan sistem operasional digital.",
+				certTitle: "Sertifikasi, Kursus & Pelatihan",
+				certSubtitle:
+					"Memiliki berbagai sertifikat pelatihan, seminar nasional/internasional, dan workshop dalam bidang software engineering, cloud computing, AI, keamanan, otomasi industri, dan kesehatan.",
+				portfolioTitle: "Portofolio Kegiatan Kerja",
+				portfolioSubtitle:
+					"Dokumentasi foto kegiatan profesional yang mewakili lingkungan software, instrumentasi, dan otomasi industri.",
+				contactTitle: "Kontak",
+				familyTitle: "Keluarga",
+				familySubtitle: "Tautan cepat ke anggota keluarga inti di bawah ini.",
+				familyFatherTitle: "Ayah",
+				familyFatherDesc: "Informasi dan catatan khusus untuk Ayah.",
+				familyMotherTitle: "Ibu",
+				familyMotherDesc: "Informasi dan catatan khusus untuk Ibu.",
+				familySiblingOlderTitle: "Kakak",
+				familySiblingOlderDesc: "Informasi dan catatan khusus untuk Kakak.",
+				familySiblingYoungerTitle: "Adik",
+				familySiblingYoungerDesc: "Informasi dan catatan khusus untuk Adik.",
+				familyWifeTitle: "Istri",
+				familyWifeDesc: "Informasi dan catatan khusus untuk Istri.",
+				familyChildrenTitle: "Anak",
+				familyChildrenDesc: "Informasi dan catatan khusus untuk Anak.",
+				seminarWorkshopTitle: "Seminar & Workshop Nasional / Internasional",
+				seminarWorkshopSubtitle: "Aktif mengikuti seminar dan workshop nasional maupun internasional.",
+				nationalInternationalSeminars: "Seminar & Workshop Nasional / Internasional",
+				professionalWorkshops: "Workshop Profesional",
+				educationTrainingTitle: "Pelatihan & Pengembangan Pendidikan",
+				educationTrainingSubtitle: "Sertifikat pelatihan dan pengembangan kompetensi di bidang pendidikan, kurikulum, dan peningkatan kompetensi tenaga pendidik untuk mendukung implementasi pembelajaran modern.",
+				professionalTrainingTitle: "Pelatihan & Sertifikasi Profesional",
+				professionalTrainingSubtitle: "Sertifikat pelatihan dan pengembangan kompetensi profesional yang mendukung kesiapan kerja dan pengembangan karir.",
+				hospitalTrainingTitle: "Pelatihan & Sertifikasi Rumah Sakit",
+				hospitalTrainingSubtitle: "Memiliki sertifikat pelatihan dan pengembangan kompetensi di bidang kesehatan, keselamatan rumah sakit, komunikasi layanan, pencegahan infeksi, dan bantuan hidup dasar.",
+				contributionTitle: "Kontribusi",
+				whatsapp: "WhatsApp",
+				youtube: "YouTube",
+				facebook: "Facebook",
+				tiktok: "TikTok",
+				instagram: "Instagram",
+				fatherLink: "Ayah Saya",
+				brotherLink: "Kakak Saya",
+			},
+			en: {
+				navHome: "Home",
+				navProfile: "Profile",
+				navEducation: "Education",
+				navExperience: "Experience",
+				navPortfolio: "Portfolio",
+				navSeminarWorkshop: "Seminar & Workshop",
+				navCertTraining: "Certification, Courses & Training",
+				navFamily: "Family",
+				heroBadge: "Premium Gold Portfolio",
+				name: "Miftah Saifulloh, B.Comp.Sc",
+				headline: "Computer Science and Industrial Automation",
+				heroDescription:
+					"Experienced in software, application, information system, instrumentation, and automation development. Proven track record as a Project Programmer, Software Developer, Java Developer, .NET Developer, Full-Stack Developer, Backend & Front-End Developer, Mobile & Web Application Developer, System Analyst, Instrumentation Engineer, Automation Engineer, and IT Professional. Dedicated to developing digital solutions, system integration, and automation technologies that are innovative, efficient, reliable, and aligned with organizational objectives.",
+				btnContact: "Contact Me",
+				btnWork: "Linkedin",
+				metaDate: "1 December 1987",
+				metaStatus: "Married",
+				metaReligion: "Muslim",
+				prestasiTitle: "Prestasi",
+				achievementEduTitle: "Academic Achievement",
+				achievementEduDesc:
+					"Awarded as outstanding/best student at STT Telkom/IT Telkom (29 August 2007).",
+				achievementWorkTitle: "Work Achievement",
+				achievementWorkDesc:
+					"Best Practice recognition for e-learning development at Telkom University (12 March 2014).",
+				internshipTitle: "Internship",
+				internshipDesc:
+					"PT Putra Bangsa Sejati, System Analyst, Electronics and Timing Calibration Test Bench Project (Aerospace).",
+				eduTitle: "Education",
+				edu1Desc:
+					"Thesis: Implementation of Fuzzy Logic Sugeno for microcontroller-based storage room temperature control.",
+				edu2Desc:
+					"Designed and implemented bottling plant automation system for production monitoring and control.",
+				edu3Point1: "Initiated the 2005 graduation yearbook project.",
+				edu3Point2: "Participated in school website competition and ranked top 10 in West Java (2004).",
+				edu3Point3: "OSIS committee, flag ceremony, and outbound committee involvement.",
+				expTitle: "Work Experience",
+				expSubtitle:
+					"Cross-sector track record with contributions to application development, industrial automation, instrumentation control, and digital operational systems.",
+				certTitle: "Certification, Courses & Training",
+				certSubtitle:
+					"Holds many training certificates, national/international seminars, and workshops",
+				portfolioTitle: "Work Activity Portfolio",
+				portfolioSubtitle:
+					"Sample professional activity photos representing software, instrumentation",
+				contactTitle: "Contact",
+				familyTitle: "Family",
+				familySubtitle: "Quick links to the core family members below.",
+				familyFatherTitle: "Father",
+				familyFatherDesc: "Dedicated information and notes for the father.",
+				familyMotherTitle: "Mother",
+				familyMotherDesc: "Dedicated information and notes for the mother.",
+				familySiblingOlderTitle: "Older Sibling",
+				familySiblingOlderDesc: "Dedicated information and notes for the older sibling.",
+				familySiblingYoungerTitle: "Younger Sibling",
+				familySiblingYoungerDesc: "Dedicated information and notes for the younger sibling.",
+				familyWifeTitle: "Wife",
+				familyWifeDesc: "Dedicated information and notes for the wife.",
+				familyChildrenTitle: "Children",
+				familyChildrenDesc: "Dedicated information and notes for the children.",
+				seminarWorkshopTitle: "National / International Seminars & Workshops",
+				seminarWorkshopSubtitle: "Actively participates in national and international seminars and workshops.",
+				nationalInternationalSeminars: "National & International Seminars",
+				professionalWorkshops: "Professional Workshops",
+				educationTrainingTitle: "Education Training & Development",
+				educationTrainingSubtitle: "Education and training certificates in teaching, curriculum development, and educator competency improvement to support modern learning implementation.",
+				professionalTrainingTitle: "Professional Training & Certification",
+				professionalTrainingSubtitle: "Training certificates and professional competency development supporting job readiness and career growth.",
+				hospitalTrainingTitle: "Hospital Training & Certification",
+				hospitalTrainingSubtitle: "Has training certificates and competency development in healthcare, hospital safety, service communication, infection control, and basic life support.",
+				contributionTitle: "Contribution",
+				whatsapp: "WhatsApp",
+				youtube: "YouTube",
+				facebook: "Facebook",
+				tiktok: "TikTok",
+				instagram: "Instagram",
+				fatherLink: "My Father",
+				brotherLink: "My Brother",
+			},
+		};
+
+		function applyLanguage(lang) {
+			document.querySelectorAll("[data-i18n]").forEach((el) => {
+				const key = el.dataset.i18n;
+				if (dictionary[lang] && dictionary[lang][key]) {
+					el.textContent = dictionary[lang][key];
+				}
+			});
+
+			document.documentElement.lang = lang;
+			document.querySelectorAll(".lang-btn").forEach((button) => {
+				button.classList.toggle("active", button.dataset.lang === lang);
+			});
+		}
+
+		document.querySelectorAll(".lang-btn").forEach((button) => {
+			button.addEventListener("click", () => applyLanguage(button.dataset.lang));
+		});
+
+		applyLanguage("en");
+	</script>
+</body>
+</html>
